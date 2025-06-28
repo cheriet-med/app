@@ -64,8 +64,8 @@ export async function generateMetadata({
   return {
 
 
-    title: t('global-title'),
-    description: t('globale-description'),
+    title: "trustdine",
+    description: "",
 
     robots: {
       index: true,

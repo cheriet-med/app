@@ -16,10 +16,10 @@ const End = () => {
                  <Link href="/privacy-policy"><p className="cursor-pointer hover:text-blue-300">{t('Privacy Policy')} </p></Link>
               
             <p>|</p>
-                <Link href="/"> <p className="cursor-pointer hover:text-blue-300">{t('Terms and Conditions')} </p></Link>
+                <Link href="/terms-and-conditions"> <p className="cursor-pointer hover:text-blue-300">{t('Terms and Conditions')} </p></Link>
                 
                  <p>|</p>
-                  <Link href="/"> <p className="cursor-pointer hover:text-blue-300">{t('Cookies Policy')}</p></Link>
+                  <Link href="/cookies-policy"> <p className="cursor-pointer hover:text-blue-300">{t('Cookies Policy')}</p></Link>
 
               </div>
               <div className="w-24 pb-10 sm:pb-0">

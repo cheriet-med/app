@@ -20,6 +20,10 @@ export const routing = defineRouting({
       it: "/blog",
       es: "/blog",
     },
+    "/receipt-verification":"/receipt-verification",
+    "/find-restaurants":"/find-restaurants",
+    "/trust-score":"/trust-score",
+    "/became-a-partner":"/became-a-partner",
     "/search": {
       en: "/search",
       fr: "/recherche",

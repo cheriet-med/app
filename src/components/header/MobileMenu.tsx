@@ -57,28 +57,43 @@ const MobileMenu = () => {
             <div className="w-full max-w-md py-36 text-primary">
           
             <div className="mb-12 text-center opacity-90">
-                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Find Restaurants</h2>
+              <Link href="/find-restaurants">  
+               <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Find Restaurants</h2>
+              </Link>
+             
              <hr className='border border-spacing-1 bg-gray-400'/> 
               </div>
               <div className="mb-12 text-center opacity-90">
-                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Receipt Verification</h2>
+              <Link href="/receipt-verification">  
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Receipt Verification</h2>
+              </Link>
+              
                 <hr className='border border-spacing-1'/> 
               </div>
 
 
               <div className="mb-12 text-center opacity-90">
-                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600"> Trust Score</h2>
+              <Link href="/trust-score">  
+<h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600"> Trust Score</h2>
+              </Link>
+                
                 <hr className='border border-spacing-1'/> 
               </div>
 
               <div className="mb-12 text-center opacity-90">
-                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Help</h2>
+              <Link href="/help">  
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Help</h2>
+              </Link>
+              
                 <hr className='border border-spacing-1'/> 
               </div>
 
              
               <div className="mb-12 text-center opacity-90">
-                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Become a Partner</h2>
+              <Link href="/became-a-partner">  
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Become a Partner</h2>
+              </Link>
+              
                 <hr className='border border-spacing-1'/> 
               </div>
 

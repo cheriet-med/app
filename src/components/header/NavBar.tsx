@@ -8,6 +8,9 @@ import { useTranslations } from 'next-intl';
 import LoginButton from "./loginButton";
 import { useLocale } from "next-intl";
 import { useState , useEffect} from 'react';
+import { FaHome } from "react-icons/fa";
+
+
 
 export default function NavBar() {
   const te = useTranslations('tophero');
@@ -57,6 +60,9 @@ export default function NavBar() {
           onMouseLeave={() => setIsHovered(false)}
           aria-label="Global"
         >
+          <Link href="/" rel="preload">
+                 <FaHome size={24} className='text-primary hover:text-secondary lg:hidden'/>
+                </Link>
           <LanguageSelect />
 
           <div className="gap-10 flex flex-auto justify-end">
