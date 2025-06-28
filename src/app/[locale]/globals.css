@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  background: white;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+
+
+/* globals.css or your custom CSS file */
+.ProseMirror {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  min-height: 200px;
+  outline: none;
+  background-color: white;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.ProseMirror:focus {
+  border-color: #3b82f6; /* Blue border on focus */
+}
+
+
+.bullet-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.ordered-list {
+  list-style-type: decimal;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.tiptap p {
+  margin-bottom: 1rem; /* Adjust this value to control the space between paragraphs */
+}
+/* Or if you want to target only post content */
+.prose p {
+  margin-bottom: 1rem; /* Adjust as needed */
+}
+
+
+/* Or if you want to target only post content */
+.post-content p {
+  margin-bottom: 1rem;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.tiptap ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+ ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/* Add this to your global CSS */
+#card-number,
+#expiration-date,
+#cvv {
+  border: 1px solid rgb(212, 212, 212); /* Debugging border */
+  height: 40px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+
+.paypal-hosted-field {
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
