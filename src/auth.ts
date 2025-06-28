@@ -38,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           // Step 1: Fetch JWT token
           const tokenResponse = await fetch(
-            "https://padlevb.vercel.app/auth/jwt/create/",
+            "https://api.padlev.com/auth/jwt/create/",
             {
               method: "POST",
               headers: {
@@ -61,7 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           // Step 2: Fetch user data using the token
           const userResponse = await fetch(
-            "https://padlevb.vercel.app/api/user/",
+            "https://api.padlev.com/api/user/",
             {
               method: "GET",
               headers: {

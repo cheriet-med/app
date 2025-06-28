@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import LoginButton from "./loginButton";
+
 
 const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,19 +53,19 @@ const MobileMenu = () => {
           {/* Close Button */}
          
           {/* Menu Content with fade-in effect */}
-          <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} overflow-y-auto py-12`}>
             <div className="w-full max-w-md py-36 text-primary">
           
             <div className="mb-12 text-center opacity-90">
               <Link href="/find-restaurants">  
-               <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Find Restaurants</h2>
+               <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600" onClick={toggleMenu}>Find Restaurants</h2>
               </Link>
              
              <hr className='border border-spacing-1 bg-gray-400'/> 
               </div>
               <div className="mb-12 text-center opacity-90">
               <Link href="/receipt-verification">  
-  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Receipt Verification</h2>
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600" onClick={toggleMenu}>Receipt Verification</h2>
               </Link>
               
                 <hr className='border border-spacing-1'/> 
@@ -74,7 +74,7 @@ const MobileMenu = () => {
 
               <div className="mb-12 text-center opacity-90">
               <Link href="/trust-score">  
-<h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600"> Trust Score</h2>
+<h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600" onClick={toggleMenu}> Trust Score</h2>
               </Link>
                 
                 <hr className='border border-spacing-1'/> 
@@ -82,7 +82,7 @@ const MobileMenu = () => {
 
               <div className="mb-12 text-center opacity-90">
               <Link href="/help">  
-  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Help</h2>
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600" onClick={toggleMenu}>Help</h2>
               </Link>
               
                 <hr className='border border-spacing-1'/> 
@@ -91,7 +91,7 @@ const MobileMenu = () => {
              
               <div className="mb-12 text-center opacity-90">
               <Link href="/became-a-partner">  
-  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600">Become a Partner</h2>
+  <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600" onClick={toggleMenu}>Become a Partner</h2>
               </Link>
               
                 <hr className='border border-spacing-1'/> 
@@ -100,11 +100,11 @@ const MobileMenu = () => {
               <div className="mb-12 text-center opacity-90">
               {status === "authenticated" ? ( // If user is logged in
     <Link href="/account" rel="preload">
-       <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 ">My Account</p>
+       <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>My Account</p>
     </Link>
   ) : ( // If user is not logged in
     <Link href="/account" rel="preload">
-    <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 ">Sign in</p>
+    <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>Sign in</p>
  </Link>
   )}
                 <hr className='border border-spacing-1'/> 
