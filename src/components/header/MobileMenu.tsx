@@ -53,7 +53,7 @@ const MobileMenu = () => {
           {/* Close Button */}
          
           {/* Menu Content with fade-in effect */}
-          <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} overflow-y-auto py-12`}>
+          <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} overflow-y-auto pt-96`}>
             <div className="w-full max-w-md py-36 text-primary">
           
             <div className="mb-12 text-center opacity-90">
@@ -99,11 +99,11 @@ const MobileMenu = () => {
 
               <div className="mb-12 text-center opacity-90">
               {status === "authenticated" ? ( // If user is logged in
-    <Link href="/account" rel="preload">
+    <Link href="/" rel="preload">
        <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>My Account</p>
     </Link>
   ) : ( // If user is not logged in
-    <Link href="/account" rel="preload">
+    <Link href="/" rel="preload">
     <p className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>Sign in</p>
  </Link>
   )}
