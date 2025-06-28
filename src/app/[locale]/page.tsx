@@ -1,7 +1,7 @@
 import Image from "next/image"
 
 
-export default function () {
+export default function hompage() {
   return (
 
        <div className="h-dvh w-full sm:col-span-1 relative flex items-center bg-secondary">
