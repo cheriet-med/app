@@ -1,7 +1,7 @@
 // app/map/page.tsx
 import Map from '@/components/Map';
-import SmartSearch from '@/components/header/search';
 
+import SearchForm from '@/components/header/search';
 
 export default function MapPage() {
   const sampleMarkers = [
@@ -25,7 +25,7 @@ export default function MapPage() {
         markers={sampleMarkers}
       />
    <div className='py-32'> 
-        <SmartSearch/>
+        <SearchForm/>
       </div>
     
     </div>

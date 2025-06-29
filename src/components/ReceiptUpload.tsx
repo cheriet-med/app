@@ -3,6 +3,7 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Upload, Eye, X, RefreshCw, Shield, Camera, StopCircle } from 'lucide-react';
+import { FaFileUpload } from "react-icons/fa";
 
 interface ReceiptUploadProps {
   onFileUpload: (file: File) => void;
@@ -30,6 +31,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
   const [attempts, setAttempts] = useState(0);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [cameraError, setCameraError] = useState('');
+  const [fileError, setFileError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -37,10 +39,11 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
 
   const MAX_ATTEMPTS = 3;
   const CAPTCHA_TIMEOUT = 300000; // 5 minutes
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 
   // Generate distorted text CAPTCHA
   const generateTextCaptcha = useCallback(() => {
-    const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ23456789'; // Removed confusing characters
+    const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
     let result = '';
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -81,7 +84,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     setCaptchaAnswer(answer.toString());
   }, []);
 
-  // Camera functions - FIXED VERSION
+  // Camera functions
   const startCamera = useCallback(async (e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
@@ -91,24 +94,22 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     setCameraError('');
     
     try {
-      // Check if getUserMedia is supported
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('Camera not supported in this browser');
       }
 
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: 'environment', // Prefer back camera for document scanning
+          facingMode: 'environment',
           width: { ideal: 1280, max: 1920 },
           height: { ideal: 720, max: 1080 }
         },
-        audio: false // We don't need audio
+        audio: false
       });
       
       setStream(mediaStream);
       setShowCamera(true);
       
-      // Wait for video element to be ready
       setTimeout(() => {
         if (videoRef.current && mediaStream) {
           videoRef.current.srcObject = mediaStream;
@@ -164,16 +165,18 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       return;
     }
 
-    // Set canvas size to match video
     canvas.width = video.videoWidth || video.offsetWidth;
     canvas.height = video.videoHeight || video.offsetHeight;
     
-    // Draw the video frame to canvas
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     
-    // Convert canvas to blob and create file
     canvas.toBlob((blob) => {
       if (blob) {
+        if (blob.size > MAX_FILE_SIZE) {
+          setCameraError('Captured image is too large (max 10MB). Try reducing quality or lighting.');
+          return;
+        }
+        
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
         const file = new File([blob], `receipt-${timestamp}.jpg`, {
           type: 'image/jpeg',
@@ -185,7 +188,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       } else {
         setCameraError('Failed to capture photo');
       }
-    }, 'image/jpeg', 0.8);
+    }, 'image/jpeg', 0.8); // Adjust quality to reduce file size if needed
   }, [onFileUpload, stopCamera]);
 
   // Cleanup camera on unmount
@@ -204,23 +207,18 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Add background with subtle pattern
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop(0, '#f8fafc');
     gradient.addColorStop(1, '#e2e8f0');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Add noise
     for (let i = 0; i < 100; i++) {
       ctx.fillStyle = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
       ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
     }
 
-    // Add interference lines
     for (let i = 0; i < 5; i++) {
       ctx.strokeStyle = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.3)`;
       ctx.lineWidth = 1;
@@ -230,7 +228,6 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       ctx.stroke();
     }
 
-    // Draw text with distortion
     ctx.font = 'bold 32px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -251,7 +248,6 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     }
   }, []);
 
-  // Generate CAPTCHA based on type
   const generateCaptcha = useCallback(() => {
     const type = Math.random() > 0.5 ? 'text' : 'math';
     setCaptchaType(type);
@@ -265,7 +261,6 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     setUserInput('');
     setCaptchaError('');
     
-    // Set timeout for CAPTCHA
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
@@ -293,7 +288,14 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
   const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Reset attempts when new file is uploaded
+      if (file.size > MAX_FILE_SIZE) {
+        setFileError('File size exceeds 10MB limit. Please choose a smaller file.');
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+        return;
+      }
+      setFileError('');
       setAttempts(0);
       onFileUpload(file);
     }
@@ -354,8 +356,14 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     setIsDragActive(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      if (file.size > MAX_FILE_SIZE) {
+        setFileError('File size exceeds 10MB limit. Please choose a smaller file.');
+        return;
+      }
+      setFileError('');
       setAttempts(0);
-      onFileUpload(e.dataTransfer.files[0]);
+      onFileUpload(file);
     }
   }, [onFileUpload]);
 
@@ -369,6 +377,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       fileInputRef.current.value = '';
     }
     setAttempts(0);
+    setFileError('');
     onFileUpload(null as unknown as File);
   }, [onFileUpload]);
 
@@ -393,12 +402,12 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         onDrop={handleDrop}
         onClick={triggerFileInput}
       >
-        <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+        <FaFileUpload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
         <label htmlFor="receipt-upload" className="cursor-pointer">
-          <span className="text-lg font-medium text-gray-900">
-            {isDragActive ? 'Drop your receipt here' : 'Upload Receipt Image'}
+          <span className="font-medium text-primary uppercase">
+            {isDragActive ? 'Drop your receipt here' : 'Upload or Drop Receipt Image'}
           </span>
-          <p className="text-gray-500 mt-1">PNG, JPG up to 10MB</p>
+          <p className="text-primary text-sm mt-1">Accepted formats: PNG, JPG. Maximum file size: 10MB.</p>
           <input
             id="receipt-upload"
             ref={fileInputRef}
@@ -409,24 +418,21 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
           />
         </label>
         
+        {/* Error message for file size */}
+        {fileError && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700 text-sm">{fileError}</p>
+          </div>
+        )}
+        
         {/* Camera and Upload buttons */}
         <div className="flex justify-center space-x-4 mt-6">
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              triggerFileInput();
-            }}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Upload className="h-4 w-4 mr-2" />
-            Choose File
-          </button>
-          <button
             onClick={startCamera}
-            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            className="flex items-center px-4 py-2 text-primary border border-spacing-1 border-primary rounded-lg hover:bg-slate-50 transition-colors"
           >
-            <Camera className="h-4 w-4 mr-2" />
-            Take Photo
+            <Camera className="h-6 w-6 mr-2" />
+            or Take Photo
           </button>
         </div>
 
@@ -440,8 +446,8 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       
       {uploadedFile && (
         <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+          <div className="flex items-center flex-wrap gap-5 justify-center">
+            <div className="flex items-center justify-center">
               <Eye className="h-5 w-5 text-blue-500 mr-2" />
               <span className="font-medium">{uploadedFile.name}</span>
               <span className="text-sm text-gray-500 ml-2">
@@ -449,7 +455,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
               </span>
               <button
                 onClick={removeFile}
-                className="ml-2 text-gray-500 hover:text-gray-700"
+                className="ml-2 text-primary hover:text-gray-700"
                 aria-label="Remove file"
               >
                 <X className="h-4 w-4" />
@@ -458,7 +464,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
             <button
               onClick={handleValidateClick}
               disabled={isValidating || attempts >= MAX_ATTEMPTS}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isValidating ? 'Validating...' : 'Validate Receipt'}
             </button>
@@ -476,15 +482,15 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         </div>
       )}
 
-      {/* Camera Modal - IMPROVED VERSION */}
+      {/* Camera Modal */}
       {showCamera && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold text-gray-900">Take Photo</h3>
+              <h3 className="text-lg uppercase font-semibold text-primary">Take Photo</h3>
               <button
                 onClick={stopCamera}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-primary hover:text-blue-600"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -497,28 +503,27 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
                 playsInline
                 muted
                 className="w-full h-64 sm:h-80 object-cover"
-                style={{ transform: 'scaleX(-1)' }} // Mirror the video for better UX
+                style={{ transform: 'scaleX(-1)' }}
               />
               
-              {/* Camera overlay guide */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="border-2 border-white border-dashed rounded-lg w-3/4 h-3/4 opacity-50"></div>
               </div>
             </div>
             
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center flex-wrap space-x-4">
               <button
                 onClick={capturePhoto}
-                className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
-                <Camera className="h-5 w-5 mr-2" />
+                <Camera className="h-6 w-6 mr-2" />
                 Capture Photo
               </button>
               <button
                 onClick={stopCamera}
-                className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                className="flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
-                <StopCircle className="h-5 w-5 mr-2" />
+                <StopCircle className="h-6 w-6 mr-2" />
                 Cancel
               </button>
             </div>
@@ -529,18 +534,18 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       {/* Hidden canvas for photo capture */}
       <canvas ref={captureCanvasRef} className="hidden" />
 
-      {/* Enhanced CAPTCHA Modal */}
+      {/* CAPTCHA Modal */}
       {showCaptcha && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
           <div className="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full border border-gray-200">
             <div className="flex items-center mb-6">
               <Shield className="h-6 w-6 text-blue-600 mr-2" />
-              <h3 className="text-xl font-semibold text-gray-900">Security Verification</h3>
+              <h3 className="text-xl font-semibold text-primary">Security Verification</h3>
             </div>
             
             {captchaType === 'text' ? (
               <div className="mb-6">
-                <p className="text-sm text-gray-600 mb-3">Enter the characters shown below:</p>
+                <p className="text-sm text-primary mb-3">Enter the characters shown below:</p>
                 <div className="flex items-center justify-center mb-4">
                   <div className="border-2 border-gray-200 rounded-lg p-2 bg-gray-50">
                     <canvas
@@ -561,7 +566,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
               </div>
             ) : (
               <div className="mb-6">
-                <p className="text-sm text-gray-600 mb-3">Solve this math problem:</p>
+                <p className="text-sm text-primary mb-3">Solve this math problem:</p>
                 <div className="flex items-center justify-center mb-4">
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg p-4 text-center">
                     <span className="text-2xl font-bold text-blue-800">{captchaQuestion}</span>
@@ -582,7 +587,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder={captchaType === 'text' ? 'Enter the characters' : 'Enter your answer'}
-              className="w-full p-3 border-2 border-gray-300 rounded-lg mb-3 focus:border-blue-500 focus:outline-none transition-colors"
+              className="w-full p-3 border-2 border-gray-300 rounded-lg mb-3 focus:border-primary focus:outline-none transition-colors"
               autoFocus
             />
 
@@ -596,17 +601,17 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
               This verification expires in 5 minutes for security.
             </div>
 
-            <div className="flex justify-end space-x-3">
+            <div className="flex space-x-3">
               <button
                 onClick={handleCaptchaClose}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCaptchaSubmit}
                 disabled={!userInput.trim()}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
+                className="w-full px-6 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
               >
                 Verify
               </button>

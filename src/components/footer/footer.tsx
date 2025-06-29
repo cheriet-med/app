@@ -68,7 +68,7 @@ const Footer = () => {
             <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Home page</p></Link>
             <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">About Us</p></Link>
             <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">Contact </p></Link>
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Blog</p></Link>
+            <Link href="/blog"><p className="hover:text-blue-300 hover:underline cursor-pointer">Blog</p></Link>
           
           </div>
           
