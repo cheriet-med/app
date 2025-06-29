@@ -38,7 +38,7 @@ const MobileMenu = () => {
 
       {/* Full Screen Overlay */}
       <div className={`
-        fixed inset-0 bg-primary z-40 transition-opacity duration-500
+        fixed inset-0 bg-slate-50 z-40 transition-opacity duration-500
         ${isMenuOpen ? 'opacity-50 visible' : 'opacity-0 invisible delay-300'}
       `}
       onClick={toggleMenu}
@@ -49,14 +49,14 @@ const MobileMenu = () => {
         fixed inset-0 z-40 transition-all duration-500
         ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible delay-300'}
       `}>
-        <div className="absolute inset-0 bg-bl bg-opacity-95 backdrop-blur-sm flex flex-col">
+        <div className="absolute inset-0 bg-slate-50 bg-opacity-95 backdrop-blur-sm flex flex-col">
           {/* Close Button */}
          
           {/* Menu Content with fade-in effect */}
           <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} overflow-y-auto `}>
             <div className="w-full max-w-md py-36 text-primary">
           
-            <div className="mb-12 text-center opacity-90 pt-96 custom:pt-0">
+            <div className="mb-12 text-center opacity-90 pt-64 sm:pt-96 custom:pt-0">
               <Link href="/find-restaurants">  
                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>Find Restaurants</h2>
               </Link>
