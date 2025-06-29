@@ -56,7 +56,7 @@ const MobileMenu = () => {
           <div className={`flex-1 flex flex-col justify-center items-center px-4  transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'} overflow-y-auto `}>
             <div className="w-full max-w-md py-36 text-primary">
           
-            <div className="mb-12 text-center opacity-90 sm:pt-96 custom:pt-0">
+            <div className="mb-12 text-center opacity-90 pt-96 custom:pt-0">
               <Link href="/find-restaurants">  
                <h2 className="text-2xl font-semibold mb-4 cursor-pointer hover:text-gray-600 " onClick={toggleMenu}>Find Restaurants</h2>
               </Link>

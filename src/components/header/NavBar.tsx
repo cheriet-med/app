@@ -54,7 +54,7 @@ export default function NavBar() {
       >
      <nav 
           className={`flex items-center justify-between py-3 w-full px-5 rounded-lg transition-all duration-300 ${
-            isHovered ? 'bg-white bg-opacity-90 shadow-sm' : 'bg-transparent'
+            isHovered ? 'bg-white bg-opacity-90 shadow-sm' : 'bg-white bg-opacity-90 shadow-sm'
           }`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
