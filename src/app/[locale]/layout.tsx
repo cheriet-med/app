@@ -15,6 +15,10 @@ import {getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import Script from 'next/script'
 import YandexMetrika from "@/components/YandexMetrika";
+import 'leaflet/dist/leaflet.css';
+
+
+
 //const poppins = Poppins({
 //  subsets: ['latin'],
 //  weight: ['400','600','500' ,'700'], // Specify the weights you need

@@ -1,15 +1,33 @@
-import React from 'react';
-import { getTranslations } from 'next-intl/server';
-import { getLocale } from "next-intl/server";
-export default async function CookiePolicy() {
-  const t = await getTranslations('CookiePolicy');
-  const locale = await getLocale();
+// app/map/page.tsx
+import Map from '@/components/Map';
+import SmartSearch from '@/components/header/search';
+
+
+export default function MapPage() {
+  const sampleMarkers = [
+    {
+      position: [51.505, -0.09] as [number, number],
+      popup: 'Hello from London!'
+    },
+    {
+      position: [51.51, -0.1] as [number, number],
+      popup: 'Another marker'
+    }
+  ];
+
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-40 text-primary">
-      <h1 className="text-2xl font-bold mb-6 uppercase">Find restaurants</h1>
-      <p>In a quiet town nestled between rolling hills and winding rivers, a curious idea took root. People gathered not for fame or fortune, but to build something meaningful an echo of forgotten dreams and new beginnings. Every corner buzzed with potential, every morning felt like a blank page. Amid the laughter and setbacks, a quiet determination grew, reminding them all that sometimes, the most unexpected journeys lead to the most extraordinary destinations.</p>
-
-
-    </main>
+    <div className="pt-32 ">
+    
+      <Map
+        center={[51.505, -0.09]}
+        zoom={13}
+        height="500px"
+        markers={sampleMarkers}
+      />
+   <div className='py-32'> 
+        <SmartSearch/>
+      </div>
+    
+    </div>
   );
 }

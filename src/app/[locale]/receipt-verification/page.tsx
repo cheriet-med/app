@@ -1,15 +1,67 @@
-import React from 'react';
-import { getTranslations } from 'next-intl/server';
-import { getLocale } from "next-intl/server";
-export default async function CookiePolicy() {
-  const t = await getTranslations('CookiePolicy');
-  const locale = await getLocale();
+// app/page.tsx
+'use client';
+
+import React, { useState, useCallback } from 'react';
+import ReceiptUpload from '@/components/ReceiptUpload';
+import ValidationProgress from '@/components/ValidationProgress';
+import ValidationResults from '@/components/ValidationResults';
+import { ReceiptValidationEngine } from '@/lib/validationEngine';
+import { ValidationResult } from '@/types/receipt';
+
+const HomePage: React.FC = () => {
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
+  const [isValidating, setIsValidating] = useState<boolean>(false);
+
+  const handleFileUpload = useCallback((file: File) => {
+    setUploadedFile(file);
+    setValidationResult(null);
+  }, []);
+
+  const validateReceipt = useCallback(async () => {
+    if (!uploadedFile) return;
+    
+    setIsValidating(true);
+    
+    try {
+      const result = await ReceiptValidationEngine.validateReceipt(uploadedFile);
+      setValidationResult(result);
+    } catch (error) {
+      console.error('Validation error:', error);
+      // Handle error state here
+    } finally {
+      setIsValidating(false);
+    }
+  }, [uploadedFile]);
+
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-40 text-primary">
-      <h1 className="text-2xl font-bold mb-6 uppercase">Receip Verification</h1>
-      <p>In a quiet town nestled between rolling hills and winding rivers, a curious idea took root. People gathered not for fame or fortune, but to build something meaningful an echo of forgotten dreams and new beginnings. Every corner buzzed with potential, every morning felt like a blank page. Amid the laughter and setbacks, a quiet determination grew, reminding them all that sometimes, the most unexpected journeys lead to the most extraordinary destinations.</p>
+    <div className="max-w-4xl mx-auto p-6 bg-white min-h-screen pt-60">
+      <div className="text-center mb-8">
+       
+        <p className="text-gray-600">AI-powered receipt verification system</p>
+      </div>
 
+      <ReceiptUpload
+        onFileUpload={handleFileUpload}
+        uploadedFile={uploadedFile}
+        onValidate={validateReceipt}
+        isValidating={isValidating}
+      />
 
-    </main>
+      <ValidationProgress isValidating={isValidating} />
+
+      {validationResult && <ValidationResults result={validationResult} />}
+
+      {/* Demo Instructions */}
+      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+        <h3 className="font-semibold text-blue-900 mb-2">Demo Instructions:</h3>
+        <p className="text-sm text-blue-800">
+          Try uploading files with names containing: "clear", "blur", or "fake" to see different validation scenarios. 
+          This simulates how the AI would handle various receipt quality and authenticity levels.
+        </p>
+      </div>
+    </div>
   );
-}
+};
+
+export default HomePage;
