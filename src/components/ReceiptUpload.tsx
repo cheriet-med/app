@@ -29,6 +29,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
   const [captchaType, setCaptchaType] = useState<'text' | 'math'>('text');
   const [attempts, setAttempts] = useState(0);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [cameraError, setCameraError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -80,27 +81,62 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
     setCaptchaAnswer(answer.toString());
   }, []);
 
-  // Camera functions
-  const startCamera = useCallback(async () => {
+  // Camera functions - FIXED VERSION
+  const startCamera = useCallback(async (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    setCameraError('');
+    
     try {
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Camera not supported in this browser');
+      }
+
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment', // Prefer back camera for document scanning
-          width: { ideal: 1920 },
-          height: { ideal: 1080 }
-        }
+          width: { ideal: 1280, max: 1920 },
+          height: { ideal: 720, max: 1080 }
+        },
+        audio: false // We don't need audio
       });
       
       setStream(mediaStream);
       setShowCamera(true);
       
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-        videoRef.current.play();
-      }
+      // Wait for video element to be ready
+      setTimeout(() => {
+        if (videoRef.current && mediaStream) {
+          videoRef.current.srcObject = mediaStream;
+          videoRef.current.play().catch(err => {
+            console.error('Error playing video:', err);
+            setCameraError('Failed to start camera preview');
+          });
+        }
+      }, 100);
+      
     } catch (error) {
       console.error('Error accessing camera:', error);
-      alert('Unable to access camera. Please ensure camera permissions are granted.');
+      let errorMessage = 'Unable to access camera. ';
+      
+      if (error instanceof Error) {
+        if (error.name === 'NotAllowedError') {
+          errorMessage += 'Please allow camera permissions and try again.';
+        } else if (error.name === 'NotFoundError') {
+          errorMessage += 'No camera found on this device.';
+        } else if (error.name === 'NotSupportedError') {
+          errorMessage += 'Camera not supported in this browser.';
+        } else {
+          errorMessage += error.message;
+        }
+      }
+      
+      setCameraError(errorMessage);
+      setShowCamera(false);
     }
   }, []);
 
@@ -110,20 +146,27 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       setStream(null);
     }
     setShowCamera(false);
+    setCameraError('');
   }, [stream]);
 
   const capturePhoto = useCallback(() => {
-    if (!videoRef.current || !captureCanvasRef.current) return;
+    if (!videoRef.current || !captureCanvasRef.current) {
+      setCameraError('Camera not ready for capture');
+      return;
+    }
 
     const video = videoRef.current;
     const canvas = captureCanvasRef.current;
     const ctx = canvas.getContext('2d');
     
-    if (!ctx) return;
+    if (!ctx) {
+      setCameraError('Failed to capture photo');
+      return;
+    }
 
     // Set canvas size to match video
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.width = video.videoWidth || video.offsetWidth;
+    canvas.height = video.videoHeight || video.offsetHeight;
     
     // Draw the video frame to canvas
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -139,6 +182,8 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         
         onFileUpload(file);
         stopCamera();
+      } else {
+        setCameraError('Failed to capture photo');
       }
     }, 'image/jpeg', 0.8);
   }, [onFileUpload, stopCamera]);
@@ -151,6 +196,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       }
     };
   }, [stream]);
+
   const drawCaptchaCanvas = useCallback((text: string) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -366,7 +412,10 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         {/* Camera and Upload buttons */}
         <div className="flex justify-center space-x-4 mt-6">
           <button
-            onClick={triggerFileInput}
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerFileInput();
+            }}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Upload className="h-4 w-4 mr-2" />
@@ -380,6 +429,13 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
             Take Photo
           </button>
         </div>
+
+        {/* Camera Error Display */}
+        {cameraError && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700 text-sm">{cameraError}</p>
+          </div>
+        )}
       </div>
       
       {uploadedFile && (
@@ -419,6 +475,59 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
           )}
         </div>
       )}
+
+      {/* Camera Modal - IMPROVED VERSION */}
+      {showCamera && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-gray-900">Take Photo</h3>
+              <button
+                onClick={stopCamera}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <div className="relative bg-black rounded-lg overflow-hidden mb-4">
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="w-full h-64 sm:h-80 object-cover"
+                style={{ transform: 'scaleX(-1)' }} // Mirror the video for better UX
+              />
+              
+              {/* Camera overlay guide */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="border-2 border-white border-dashed rounded-lg w-3/4 h-3/4 opacity-50"></div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={capturePhoto}
+                className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                <Camera className="h-5 w-5 mr-2" />
+                Capture Photo
+              </button>
+              <button
+                onClick={stopCamera}
+                className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                <StopCircle className="h-5 w-5 mr-2" />
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden canvas for photo capture */}
+      <canvas ref={captureCanvasRef} className="hidden" />
 
       {/* Enhanced CAPTCHA Modal */}
       {showCaptcha && (

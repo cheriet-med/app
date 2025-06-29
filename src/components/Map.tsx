@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-// Dynamically import react-leaflet components
+// Dynamic imports for react-leaflet components
 const MapContainer = dynamic(
   () => import('react-leaflet').then((mod) => mod.MapContainer),
   { ssr: false }
@@ -41,13 +41,20 @@ const Map: React.FC<MapProps> = ({
   height = '400px',
   markers = []
 }) => {
-  const [isClient, setIsClient] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [L, setL] = useState<any>(null);
 
   useEffect(() => {
-    setIsClient(true);
+    // Load Leaflet only on client side
+    if (typeof window !== 'undefined') {
+      import('leaflet').then((leaflet) => {
+        setL(leaflet.default);
+        setIsReady(true);
+      });
+    }
   }, []);
 
-  if (!isClient) {
+  if (!isReady || !L) {
     return (
       <div 
         style={{ height }}
@@ -58,6 +65,17 @@ const Map: React.FC<MapProps> = ({
     );
   }
 
+  // Create icon after L is available
+  const DefaultIcon = L.icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
   return (
     <MapContainer
       center={center}
@@ -66,11 +84,11 @@ const Map: React.FC<MapProps> = ({
       className="rounded-lg"
     >
       <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
       />
       {markers.map((marker, index) => (
-        <Marker key={index} position={marker.position}>
+        <Marker key={index} position={marker.position} icon={DefaultIcon}>
           {marker.popup && <Popup>{marker.popup}</Popup>}
         </Marker>
       ))}
