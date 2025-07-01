@@ -121,6 +121,7 @@ export default function CombatLanding() {
             style={{ transform: 'translate(-50%, -50%)' }}
           >
             <source src="/ve.mp4" type="video/mp4" />
+             <source src="/ve.webm" type="video/webm" />
           </video>
         </div>
 
