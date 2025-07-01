@@ -415,7 +415,7 @@ export default function CircularMenu() {
       >
         {/* Background with menu.jpg */}
         <div 
-          className="absolute w-full h-full bg-[url('/01.png')] bg-no-repeat bg-center bg-cover"
+          className="absolute w-full h-full bg-[url('/01.webp')] bg-no-repeat bg-center bg-cover"
         />
 
         {/* Menu Overlay Nav */}
