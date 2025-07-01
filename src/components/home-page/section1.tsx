@@ -23,9 +23,9 @@ export default function OrkenWorldScrollAnimation() {
 
   // Video sources for each card
   const videoSources = [
-    '/assets/videos/c-2.mp4',
-    '/assets/videos/c-3.mp4',
-    '/assets/videos/c-1.mp4'
+    '/assets/videos/ca-2.mp4',
+    '/assets/videos/ca-3.mp4',
+    '/assets/videos/ca-1.mp4'
   ];
 
   const cardData = [

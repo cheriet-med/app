@@ -120,7 +120,7 @@ export default function CombatLanding() {
             className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover opacity-80"
             style={{ transform: 'translate(-50%, -50%)' }}
           >
-            <source src="/vide.mp4" type="video/mp4" />
+            <source src="/ve.mp4" type="video/mp4" />
           </video>
         </div>
 
