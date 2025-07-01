@@ -14,7 +14,7 @@ export default function SocialMedia() {
 
 
   return (
-    <div className="flex w-full gap-3 text-gray-400">
+    <div className="flex w-full gap-3 text-gray-200">
     <AiFillFacebook size={28} className=" hover:text-bl cursor-pointer"/>
     <Link href="/" target="_blank" title="X Account">
      <RiTwitterXFill size={28} className=" hover:text-black cursor-pointer"/>
@@ -24,8 +24,8 @@ export default function SocialMedia() {
     <IoLogoYoutube size={28} className=" hover:text-red-700 cursor-pointer"/>
     <FaTiktok size={28} className=" hover:text-black cursor-pointer"/>
 
-    <Link href={`/${locale}/rss`} target="_blank" rel="noopener noreferrer" title="RSS Feed"> 
-    <FaRss size={28} className=" hover:text-primary cursor-pointer"/>
+    <Link href="/" target="_blank" rel="noopener noreferrer" title="RSS Feed"> 
+    <FaRss size={28} className=" hover:text-orange-800 cursor-pointer"/>
     </Link>
    
 

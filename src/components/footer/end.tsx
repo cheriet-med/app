@@ -8,8 +8,8 @@ const End = () => {
   const t = useTranslations('Footer');
 
     return (
-        <footer className="bg-neutral pb-20 text-gray-400 ">
- <div className="flex flex-wrap-reverse sm:justify-between mx-6 md:mx-16 custom:mx-72">
+        <footer className="bg-primary pb-20 text-gray-400 ">
+ <div className="flex flex-wrap-reverse sm:justify-center mx-6 md:mx-16 custom:mx-72">
       <div className="flex  flex-wrap text-xs gap-4  text-gray-100 ">
                  <p >&copy; {t('All rights reserved')}</p>
                 <p>|</p>
@@ -22,9 +22,7 @@ const End = () => {
                   <Link href="/cookies-policy"> <p className="cursor-pointer hover:text-blue-300">{t('Cookies Policy')}</p></Link>
 
               </div>
-              <div className="w-24 pb-10 sm:pb-0">
-<LanguageSelect/>
-              </div> 
+
  </div>
           
              

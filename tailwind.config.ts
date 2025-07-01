@@ -10,14 +10,22 @@ export default {
     extend: {
       fontFamily: {
         montserrat: "var(--font-montserrat), sans-serif",
+        playfair: "var(--font-playfair), serif",
+      },
+      animation: {
+        flickerHover: "flickerHover 350ms ease-in-out forwards",
+        contentFlickerHover: "contentFlickerHover 350ms ease-in-out forwards"
       },
       colors: {
-  			primary: "#3471B1",
-  			secondary:"#002D62",
+  			primary: "#F25C54",
+  			secondary:"#2F3E46",
   			a: '#000000',
 		    neutral:"#2D628C",
 			  yel:"#2D628C",
 			  bl:"#7EB8E0",
+        accent:"#F4D35E",
+        background:"#FDFDFD",
+        highlights:"#A8DADC",
 		}, 
     },
     screens: {

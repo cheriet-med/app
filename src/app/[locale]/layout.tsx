@@ -16,8 +16,15 @@ import {routing} from '@/i18n/routing';
 import Script from 'next/script'
 import YandexMetrika from "@/components/YandexMetrika";
 import 'leaflet/dist/leaflet.css';
+import HomeNav from "@/components/header/Home-Nav";
+import { Playfair_Display } from 'next/font/google'
 
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-playfair',
+})
 
 //const poppins = Poppins({
 //  subsets: ['latin'],
@@ -238,7 +245,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} >
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className={`${playfair.variable}`}>
       <head>
       
 
@@ -310,14 +317,14 @@ export default async function RootLayout({
         </Script>
 
       </head>
-      <body> 
+      <body > 
         <NextIntlClientProvider locale={locale} messages={messages} >  
        
         <SessionProvider>
          
             <CartProvider>   
+            <HomeNav/>
             
-              <NavBar/>
               {children}
               <YandexMetrika />
               <Footer/>
@@ -333,7 +340,7 @@ export default async function RootLayout({
 }
 
 
-//export const dynamic = 'force-dynamic'; // Ensures headers are sent
+//export const dynamic = 'force-dynamic'; // Ensures headers are sent    
 
 
 

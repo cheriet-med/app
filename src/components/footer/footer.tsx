@@ -8,6 +8,10 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import NewsletterDialog from "../header/newsletters";
 import Image from "next/image";
+import { GoArrowRight } from "react-icons/go";
+
+
+
 
 const Footer = () => {
   const router = useRouter(); // Initialize the router
@@ -20,14 +24,14 @@ const Footer = () => {
   };
 
     return (
-        <footer className="bg-neutral text-gray-200">
-        <div className="mx-6 md:mx-16 custom:mx-72 py-20 ">
-          <div className="grid  grid-cols-1 sm:grid-cols-2 custom:grid-cols-4 gap-10">
+        <footer className="bg-primary text-gray-50 ">
+        <div className="mx-6 md:mx-16 custom:mx-80 py-20 font-montserrat">
+          <div className="grid  grid-cols-1 sm:grid-cols-2 custom:grid-cols-2 gap-10">
             {/* Contact & Follow Section */}
-            <div className="col-span-1">
+            <div className="col-span-1 hover:bg-black p-3">
              <div className="relative h-9 w-32 ">
                        <Image
-                         src="/logotest.png" // or "/logo.webp" if using an webp
+                         src="/trust.png" // or "/logo.webp" if using an webp
                          alt="logo"
                          fill
                          sizes='100%'
@@ -36,70 +40,85 @@ const Footer = () => {
                        />
                      </div>
 
-            <div className="text-sm text-gray-400 py-3">
+            <div className="text-sm 00 py-3">
                <p>Get a taste of the best restaurants, hotel experiences, and dining news, delivered to your inbox.</p>
    
             
             </div>
-             <NewsletterDialog/>
-              
+           
+
+
+            <div className="flex items-center w-full max-w-xs border-b border-gray-300 pb-1">
+      <input
+        type="text"
+        placeholder="Subscribe with your email"
+        className="flex-grow outline-none px-2 py-1 w-full bg-transparent placeholder:text-white"
+      />
+      <div className="flex items-center">
+        {/* Right arrow icon (using Heroicons) */}
+        <GoArrowRight size={28} className="text-white"/>
+      </div>
+    </div>
+
+
+
             </div>
-            <div >
-            <h2 className="pb-4 font-semibold uppercase">{t('Follow us')}</h2>
-            <p className="text-sm text-gray-400 mb-3">Be part of the TrustDine community, follow us on social media</p>
+            <div className="hover:bg-secondary p-3">
+            <h2 className="pb-4 font-semibold uppercase font-playfair">{t('Follow us')}</h2>
+            <p className="text-sm 00 mb-3">Be part of the TrustDine community, follow us on social media</p>
              <SocialMedia/>
             </div>
-            {/* Information Section */}
-            <div className="col-span-1">
-            <h2 className="pb-4 font-semibold uppercase">How It Works</h2>
-          <div className="text-gray-400 text-sm flex flex-col gap-3">
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Booking Process</p></Link>
-            <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">Receipt Verification</p></Link>
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Trust System</p></Link>
-          
 
-          </div>
-             
-            </div>
-            {/* Useful Links Section */}
-            <div className="col-span-1">
-            <h2 className="pb-4 font-semibold uppercase">Company</h2>
-            <div className="text-gray-400 text-sm flex flex-col gap-3">
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Home page</p></Link>
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">About Us</p></Link>
-            <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">Contact </p></Link>
-            <Link href="/blog"><p className="hover:text-blue-300 hover:underline cursor-pointer">Blog</p></Link>
-          
-          </div>
-          
-            </div>
             {/* Footer Text Spanning All Columns */}
         
           </div>
        
-          <div className="grid  grid-cols-1 sm:grid-cols-2 custom:grid-cols-4 gap-10 pt-10 ">
-         
-          <div className="col-span-1 hidden custom:block"></div>
+          <div className="grid  grid-cols-2 sm:grid-cols-2 custom:grid-cols-4 gap-10 pt-10 ">
+                     {/* Information Section */}
+                     <div className="col-span-1 hover:bg-highlights hover:text-gray-900 p-3">
+            <h2 className="pb-4 font-semibold uppercase font-playfair">How It Works</h2>
+          <div className=" text-sm flex flex-col gap-3">
+            <Link href="/"><p className=" hover:underline cursor-pointer">Booking Process</p></Link>
+            <Link href="/"> <p className=" hover:underline cursor-pointer">Receipt Verification</p></Link>
+            <Link href="/"><p className=" hover:underline cursor-pointer">Trust System</p></Link>
+          
+
+          </div>
+             
+            </div>
+
+                      {/* Useful Links Section */}
+                      <div className="col-span-1 hover:bg-accent hover:text-gray-900 p-3">
+            <h2 className="pb-4 font-semibold uppercase font-playfair">Company</h2>
+            <div className=" text-sm flex flex-col gap-3">
+            <Link href="/"><p className=" hover:underline cursor-pointer">Home page</p></Link>
+            <Link href="/"><p className=" hover:underline cursor-pointer">About Us</p></Link>
+            <Link href="/"> <p className=" hover:underline cursor-pointer">Contact </p></Link>
+            <Link href="/"><p className=" hover:underline cursor-pointer">Blog</p></Link>
+          
+          </div>
+          
+            </div>
             {/* Information Section */}
-            <div className="col-span-1">
-            <h2 className="pb-4 font-semibold uppercase">Support</h2>
-          <div className="text-gray-400 text-sm flex flex-col gap-3">
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Help Center</p></Link>
-            <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">FAQ</p></Link>
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Business Support</p></Link>
+            <div className="col-span-1 hover:bg-background hover:text-gray-900 p-3">
+            <h2 className="pb-4 font-semibold uppercase font-playfair">Support</h2>
+          <div className=" text-sm flex flex-col gap-3">
+            <Link href="/"><p className=" hover:underline cursor-pointer">Help Center</p></Link>
+            <Link href="/"> <p className=" hover:underline cursor-pointer">FAQ</p></Link>
+            <Link href="/"><p className=" hover:underline cursor-pointer">Business Support</p></Link>
         
 
           </div>
              
             </div>
             {/* Useful Links Section */}
-            <div className="col-span-1">
-            <h2 className="pb-4 font-semibold uppercase">Diners & Restaurants</h2>
-            <div className="text-gray-400 text-sm flex flex-col gap-3">
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Find Restaurants</p></Link>
-            <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">Become a Partner </p></Link>
-            <Link href="/"><p className="hover:text-blue-300 hover:underline cursor-pointer">Pro Plan</p></Link>
-            <Link href="/"> <p className="hover:text-blue-300 hover:underline cursor-pointer">Rewards Program</p></Link>
+            <div className="col-span-1 hover:bg-green-800 p-3  ">
+            <h2 className="pb-4 font-semibold uppercase font-playfair">Diners & Restaurants</h2>
+            <div className=" text-sm flex flex-col gap-3">
+            <Link href="/"><p className=" hover:underline cursor-pointer ">Find Restaurants</p></Link>
+            <Link href="/"> <p className=" hover:underline cursor-pointer ">Become a Partner </p></Link>
+            <Link href="/"><p className=" hover:underline cursor-pointer">Pro Plan</p></Link>
+            <Link href="/"> <p className=" hover:underline cursor-pointer">Rewards Program</p></Link>
           </div>
           
             </div>

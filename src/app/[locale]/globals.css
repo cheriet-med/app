@@ -108,3 +108,110 @@ ol {
 .leaflet-default-icon-path {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/***** for menu */
+
+
+
+@keyframes flickerHover {
+  0% {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+  }
+  12% {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+  }
+  24% {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(18px);
+  }
+  36% {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+  }
+  48% {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+  }
+  60% {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(3px);
+  }
+  72% {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+  }
+  84% {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(2px);
+  }
+  100% {
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(0px);
+  }
+}
+
+@keyframes contentFlickerHover {
+  0% {
+    color: white;
+    opacity: 1;
+  }
+  12% {
+    color: #F25C54;
+    opacity: 0.4;
+  }
+  24% {
+    color: white;
+    opacity: 0.9;
+  }
+  36% {
+    color: #F25C54;
+    opacity: 0.3;
+  }
+  48% {
+    color: white;
+    opacity: 0.8;
+  }
+  60% {
+    color: #F25C54;
+    opacity: 0.2;
+  }
+  72% {
+    color: white;
+    opacity: 0.7;
+  }
+  84% {
+    color: #F25C54;
+    opacity: 0.1;
+  }
+  100% {
+    color: #F25C54;
+    opacity: 1;
+  }
+}
+
+.animate-flickerHover {
+  animation: flickerHover 350ms ease-in-out forwards;
+}
+
+.animate-contentFlickerHover {
+  animation: contentFlickerHover 350ms ease-in-out forwards;
+}
+
+@media (max-width: 1000px) {
+  .segment-content ion-icon {
+    font-size: 20px;
+  }
+}
