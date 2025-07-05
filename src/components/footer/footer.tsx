@@ -24,11 +24,11 @@ const Footer = () => {
   };
 
     return (
-        <footer className="bg-primary text-gray-50 ">
+        <footer className="bg-a text-gray-50 ">
         <div className="mx-6 md:mx-16 custom:mx-80 py-20 font-montserrat">
           <div className="grid  grid-cols-1 sm:grid-cols-2 custom:grid-cols-2 gap-10">
             {/* Contact & Follow Section */}
-            <div className="col-span-1 hover:bg-black p-3">
+            <div className="col-span-1 hover:bg-gray-800 p-3">
              <div className="relative h-9 w-32 ">
                        <Image
                          src="/trust.png" // or "/logo.webp" if using an webp
@@ -94,7 +94,7 @@ const Footer = () => {
             <Link href="/"><p className=" hover:underline cursor-pointer">Home page</p></Link>
             <Link href="/"><p className=" hover:underline cursor-pointer">About Us</p></Link>
             <Link href="/"> <p className=" hover:underline cursor-pointer">Contact </p></Link>
-            <Link href="/"><p className=" hover:underline cursor-pointer">Blog</p></Link>
+          
           
           </div>
           
@@ -112,7 +112,7 @@ const Footer = () => {
              
             </div>
             {/* Useful Links Section */}
-            <div className="col-span-1 hover:bg-green-800 p-3  ">
+            <div className="col-span-1 hover:bg-white hover:text-gray-900 p-3  ">
             <h2 className="pb-4 font-semibold uppercase font-playfair">Diners & Restaurants</h2>
             <div className=" text-sm flex flex-col gap-3">
             <Link href="/"><p className=" hover:underline cursor-pointer ">Find Restaurants</p></Link>

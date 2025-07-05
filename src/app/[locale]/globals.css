@@ -169,7 +169,7 @@ ol {
     opacity: 1;
   }
   12% {
-    color: #F25C54;
+    color: #785964;
     opacity: 0.4;
   }
   24% {
@@ -177,7 +177,7 @@ ol {
     opacity: 0.9;
   }
   36% {
-    color: #F25C54;
+    color: #785964;
     opacity: 0.3;
   }
   48% {
@@ -185,7 +185,7 @@ ol {
     opacity: 0.8;
   }
   60% {
-    color: #F25C54;
+    color: #785964;
     opacity: 0.2;
   }
   72% {
@@ -193,11 +193,11 @@ ol {
     opacity: 0.7;
   }
   84% {
-    color: #F25C54;
+    color: #785964;
     opacity: 0.1;
   }
   100% {
-    color: #F25C54;
+    color: #785964;
     opacity: 1;
   }
 }

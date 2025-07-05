@@ -17,15 +17,15 @@ export default {
         contentFlickerHover: "contentFlickerHover 350ms ease-in-out forwards"
       },
       colors: {
-  			primary: "#F25C54",
-  			secondary:"#2F3E46",
+  			primary: "#000000",
+  			secondary:"#785964",
   			a: '#000000',
 		    neutral:"#2D628C",
 			  yel:"#2D628C",
 			  bl:"#7EB8E0",
-        accent:"#F4D35E",
-        background:"#FDFDFD",
-        highlights:"#A8DADC",
+        accent:"#82A7A6",
+        background:"#9ED0E6",
+        highlights:"#B796AC",
 		}, 
     },
     screens: {

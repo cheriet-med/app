@@ -405,7 +405,7 @@ export default function CircularMenu() {
         onClick={toggleMenu}
       >
      
-        <RiMenu3Fill size={32} className="hover:text-primary text-white"/>
+        <RiMenu3Fill size={32} className="hover:text-secondary text-white"/>
       </button>
 
       {/* Menu Overlay */}
@@ -494,11 +494,11 @@ export default function CircularMenu() {
             ref={joystickRef}
             className="joystick absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white rounded-full flex items-center justify-center select-none cursor-grab z-[100]"
           >
-            <FaTh className="absolute text-primary text-3xl" />
-            <FaChevronUp className="absolute text-primary text-xs top-3 left-1/2 transform -translate-x-1/2" />
-            <FaChevronDown className="absolute text-primary text-xs bottom-3 left-1/2 transform -translate-x-1/2" />
-            <FaChevronLeft className="absolute text-primary text-xs left-3 top-1/2 transform -translate-y-1/2" />
-            <FaChevronRight className="absolute text-primary text-xs right-3 top-1/2 transform -translate-y-1/2" />
+            <FaTh className="absolute text-secondary text-3xl" />
+            <FaChevronUp className="absolute text-secondary text-xs top-3 left-1/2 transform -translate-x-1/2" />
+            <FaChevronDown className="absolute text-secondary text-xs bottom-3 left-1/2 transform -translate-x-1/2" />
+            <FaChevronLeft className="absolute text-secondary text-xs left-3 top-1/2 transform -translate-y-1/2" />
+            <FaChevronRight className="absolute text-secondary text-xs right-3 top-1/2 transform -translate-y-1/2" />
           </div>
         </div>
 
