@@ -10,7 +10,7 @@ export default function Home() {
     <main >
   <CombatLanding/>
    <div className=' flex gap-10 lg:gap-20 flex-wrap lg:flex-nowrap bg-secondary px-6 lg:px-60 py-20  lg:py-32 text-white w-full'>
-   <h1 className=' font-extratbold lg:flex-1 font-playfair uppercase text-4xl md:text-5xl font-bold'>Explore a World of Flavors & Stays</h1>
+   <h1 className=' font-extratbold lg:flex-1 font-playfair uppercase text-3xl md:text-5xl font-bold'>Explore a World of Flavors & Stays</h1>
         <p className='lg:flex-1 md:text-xl '>Discover an unbeatable variety of restaurants, cozy cafes, luxury hotels, and local food experiences all in one place. Whether you're planning a weekend getaway, a romantic dinner, or a family feast, find trusted spots that match your taste, mood, and budget.
 
 </p>
@@ -18,7 +18,7 @@ export default function Home() {
 
   <ScrollAnimationGallery/>
  <div className='flex gap-20 flex-wrap lg:flex-nowrap flex-col justify-center px-6 lg:px-72 pt-36 pb-24 lg:pb-2 lg:pt-48 text-white bg-secondary w-full' >
-  <h1 className='uppercase text-4xl md:text-5xl  font-bold flex-2 font-playfair text-center'>Boost Your Score with Trusted Reviews
+  <h1 className='uppercase text-3xl md:text-5xl  font-bold flex-2 font-playfair text-center'>Boost Your Score with Trusted Reviews
 
 </h1>
     <p className=" mx-auto text-center md:text-xl ">

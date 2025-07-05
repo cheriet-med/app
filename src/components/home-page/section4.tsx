@@ -21,7 +21,7 @@ const Card = ({ title, copy, index, imageUrl }: CardProps) => {
   const bgColors = [
     'bg-background',
     'bg-highlights',
-    'bg-secondary',
+    'bg-secondary text-white',
     'bg-a text-white',
   ];
   const bgColor = bgColors[index % bgColors.length];
@@ -80,13 +80,13 @@ const RotatingCard = ({ index }: { index: number }) => {
 
   return (
     <div 
-      className="rotating-card absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 will-change-transform w-64 custom:w-80 h-1/2 p-2 flex flex-col gap-2 bg-[#202020] text-white opacity-0 invisible"
+      className="rotating-card absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 will-change-transform w-64 custom:w-80 h-1/2 p-2 flex flex-col gap-2 bg-[#202020] text-white opacity-0 invisible rounded-xl"
     >
       <div className="flex-1 min-h-0 w-full">
         <img 
           src={`/asset/card-${index + 1}.avif`}
           alt={`Card ${index + 1}`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-lg"
           loading="lazy"
         />
       </div>
