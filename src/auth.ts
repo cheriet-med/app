@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import GoogleProvider from "next-auth/providers/google";
 // Extend the User and Session types in next-auth
 declare module "next-auth" {
   interface User {
@@ -8,7 +8,7 @@ declare module "next-auth" {
     email?: string | null;
     full_name?: string | null;
     is_superuser?: boolean;
-    is_partner?: boolean;
+    is_staff?: boolean;
     address_line_1?: string | null;
     address_line_2?: string | null;
     city?: string | null;
@@ -25,6 +25,15 @@ declare module "next-auth" {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          scope: "openid email profile"
+        }
+      }
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -80,7 +89,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email,
             name: user.full_name,
             is_superuser: user.is_superuser,
-            is_partner: user.is_partner,
+            is_staff: user.is_staff,
             address_line_1: user.address_line_1,
             address_line_2: user.address_line_2,
             city: user.city,
@@ -101,6 +110,62 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
+        async signIn({ user, account, profile }) {
+      // Handle Google OAuth sign-in
+      if (account?.provider === "google") {
+        try {
+          // Check if user exists in Django backend
+          const response = await fetch(
+            "https://trustdine-backend.vercel.app/auth/o/google-oauth2/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                access_token: account.access_token,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            
+            // Fetch user details from Django
+            const userResponse = await fetch(
+              "https://trustdine-backend.vercel.app/api/user/",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `JWT ${data.access}`,
+                },
+              }
+            );
+
+            if (userResponse.ok) {
+              const userData = await userResponse.json();
+              // Update user object with Django data
+              user.id = userData.id;
+              user.full_name = userData.full_name;
+              user.is_superuser = userData.is_superuser;
+              user.address_line_1 = userData.address_line_1;
+              user.address_line_2 = userData.address_line_2;
+              user.city = userData.city;
+              user.state = userData.state;
+              user.postalCode = userData.postalCode;
+              user.countryCode = userData.countryCode;
+              user.phoneNumber = userData.phoneNumber;
+              (user as any).access_token = data.access;
+            }
+          }
+          return true;
+        } catch (error) {
+          console.error("Google OAuth error:", error);
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         // Include all user fields in the token
@@ -110,7 +175,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           name: user.name,
           is_superuser: user.is_superuser,
-          is_partner: user.is_partner, // Correct spelling here
+          is_staff: user.is_staff, // Correct spelling here
           address_line_1: user.address_line_1,
           address_line_2: user.address_line_2,
           city: user.city,
@@ -130,7 +195,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: token.email as string,
         full_name: token.name as string,
         is_superuser: token.is_superuser as boolean,
-        is_partner: token.is_partner as boolean, // Fix this typo!
+        is_staff: token.is_staff as boolean, // Fix this typo!
         address_line_1: token.address_line_1 as string | null,
         address_line_2: token.address_line_2 as string | null,
         city: token.city as string | null,

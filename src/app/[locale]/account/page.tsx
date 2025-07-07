@@ -22,5 +22,5 @@ console.log(session?.user)
     </div>  
     </div>);
   }
-  return session?.user?.is_superuser? <DashboardAdmin/> :  ( session?.user?.state =="p" ? <DashboardPartner/>:<DashboardUser/>)
+  return session?.user?.is_superuser? <DashboardAdmin/> :  ( session?.user?.is_staff? <DashboardPartner/>:<DashboardUser/>)
 }

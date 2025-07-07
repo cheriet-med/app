@@ -29,6 +29,13 @@ export default function SignInPage() {
   const [emailsenderror, setEmailsenderror] = useState(false);
   const [enteremail, setEnteremail] = useState(false);
 
+
+
+const handleGoogleLogin = () => {
+    signIn("google", { callbackUrl: "/account" });
+  };
+
+
   const isValidEmail = async (email: string): Promise<{ valid: boolean; message?: string }> => {
     if (!email || email.trim() === "") {
       return { valid: false, message: t('Email-is-required') };
@@ -282,7 +289,9 @@ export default function SignInPage() {
   />
   Continue with Facebook
 </button>
-                    <button className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent">
+                    <button className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent"
+                    onClick={handleGoogleLogin}
+                    >
   <Image
     src="/google.png" 
     alt="Facebook"
