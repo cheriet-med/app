@@ -26,12 +26,17 @@ import { IoRestaurant } from "react-icons/io5";
 import { FaHandsHelping } from "react-icons/fa";
 import { MdOutlineCreditScore } from "react-icons/md";
 import { RiMenu3Fill } from "react-icons/ri";
+import { useLinkStatus } from "next/link";
+import { useSession } from "next-auth/react";
+import { AppPathname } from "@/i18n/routing";
+import Link from 'next/link';
+import {useLocale} from "next-intl";
 
 
 interface MenuItem {
   label: string;
   icon: any,
-  href: string;
+  href: string ;
 }
 
 export default function CircularMenu() {
@@ -49,14 +54,14 @@ export default function CircularMenu() {
   const menuOpenSound = useRef<HTMLAudioElement | null>(null);
   const menuCloseSound = useRef<HTMLAudioElement | null>(null);
   const menuSelectSound = useRef<HTMLAudioElement | null>(null);
-
+  const { data: session, status } = useSession();
   const menuItems: MenuItem[] = [
-    { label: "Booke", icon: <IoRestaurant />, href: "#vision" },
-    { label: "Be partner", icon: <FaPeopleGroup />, href: "#portfolio" },
-    { label: "Sign in", icon: <FaUser />, href: "#people" },
-    { label: "Trust Score", icon: <MdOutlineCreditScore />, href: "#insights" },
-    { label: "Help Center", icon: <FaHandsHelping />, href: "#careers" },
-    { label: "About Us", icon: <FaBookReader />, href: "#about" },
+    { label: "Booke", icon: <IoRestaurant />, href: "/" },
+    { label: "Be partner", icon: <FaPeopleGroup />, href: "/" },
+    { label: status === "authenticated" ? "My Account" :"Sign in", icon: <FaUser />, href: status === "authenticated" ? "/en/account" :"/en/login" },
+    { label: "Trust Score", icon: <MdOutlineCreditScore />, href: "/" },
+    { label: "Help Center", icon: <FaHandsHelping />, href: "/" },
+    { label: "About Us", icon: <FaBookReader />, href: "/" },
   ];
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -454,7 +459,7 @@ export default function CircularMenu() {
             const contentPos = getSegmentContentPosition(index, menuItems.length);
 
             return (
-              <a
+              <Link
                 key={index}
                 ref={(el) => {
                   if (el) {
@@ -469,6 +474,7 @@ export default function CircularMenu() {
                   height: `${responsiveConfig.menuSize}px`,
                 }}
                 onMouseEnter={playSelectSound}
+                onClick={toggleMenu}
               >
                 <div
                   className="segment-content absolute flex flex-col items-center justify-center font-semibold text-center hover:animate-contentFlickerHover "
@@ -485,7 +491,7 @@ export default function CircularMenu() {
                     {item.label}
                   </div>
                 </div>
-              </a>
+              </Link>
             );
           })}
 

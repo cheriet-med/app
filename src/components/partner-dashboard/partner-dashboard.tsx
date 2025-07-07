@@ -7,7 +7,6 @@ import { signOut } from "next-auth/react";
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useLocale } from "next-intl";
-
 import { 
   Home, 
   Users, 
@@ -44,7 +43,7 @@ const menuItems: MenuItem[] = [
   { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
 ];
 
-export default function DashboardAdmin() {
+export default function DashboardPartner() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -108,7 +107,7 @@ export default function DashboardAdmin() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed left-0 top-0 h-full bg-a border-r border-gray-200 z-50 transition-all duration-300 ease-in-out 
+          fixed left-0 top-0 h-full bg-secondary border-r border-gray-200 z-50 transition-all duration-300 ease-in-out
           ${isCollapsed ? 'w-24' : 'w-64'}
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
@@ -133,9 +132,9 @@ export default function DashboardAdmin() {
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               {window.innerWidth < 1024 ? (
-                <X className="h-5 w-5 text-gray-50" />
+                <X className="h-5 w-5 text-gray-600" />
               ) : (
-                <ChevronLeft className="h-5 w-5 text-gray-50" />
+                <ChevronLeft className="h-5 w-5 text-gray-600" />
               )}
             </button>
           )}
@@ -148,7 +147,7 @@ export default function DashboardAdmin() {
               onClick={toggleSidebar}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              <ChevronRight className="h-5 w-5 text-gray-50" />
+              <ChevronRight className="h-5 w-5 text-gray-600" />
             </button>
           </div>
         )}
@@ -157,7 +156,7 @@ export default function DashboardAdmin() {
         {!isCollapsed && (
           <div className="p-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-700" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."
@@ -205,7 +204,7 @@ export default function DashboardAdmin() {
                     )}
                     {/* Tooltip for collapsed state */}
                     {isCollapsed && (
-                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-50 text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                         {item.label}
                         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900"></div>
                       </div>
@@ -236,24 +235,24 @@ export default function DashboardAdmin() {
                 
               </div>
               <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                <LogOut className="h-4 w-4 text-gray-600" />
+                <LogOut className="h-4 w-4 text-gray-50" />
               </button>
             </div>
           ) : (
             <div className="flex flex-col items-center space-y-2">
-                        <div className="w-10 h-10 relative rounded-full overflow-hidden">
-  <Image
-    src="/asset/card-3.avif" 
-    alt="Facebook"
-    fill // This makes the image fill the container
-    style={{ 
-      objectFit: 'cover', // This ensures the image covers the area while maintaining aspect ratio
-    }}
-  />
-</div>
+                 <div className="w-10 h-10 relative rounded-full overflow-hidden">
+                <Image
+                  src="/asset/card-3.avif" 
+                  alt="Facebook"
+                  fill // This makes the image fill the container
+                  style={{ 
+                    objectFit: 'cover', // This ensures the image covers the area while maintaining aspect ratio
+                  }}
+                />
+              </div>
               <div onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })}>   
                 <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors"  >
-                <LogOut className="h-4 w-4 text-gray-50" />
+                <LogOut className="h-4 w-4 text-gray-600" />
               </button>
 
               </div>
@@ -271,16 +270,15 @@ export default function DashboardAdmin() {
       `}>
         <div className="p-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Dashboard as <span className='text-green-700'>Admin</span></h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Dashboard as <span className='text-green-700'>Partner</span></h1>
             <p className="text-gray-600">
               This is your main content area. The sidebar is fully responsive.
             </p>
             
 
             <p onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })} className='cursor-pointer mt-10 uppercase'>logout</p>
-            <Link href="/"> <p  className='cursor-pointer mt-10 uppercase'>Back to home page</p>
-            </Link>
-           
+             <Link href="/"> <p  className='cursor-pointer mt-10 uppercase'>Back to home page</p>
+                                    </Link>
           </div>
         </div>
       </main>

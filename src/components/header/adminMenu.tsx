@@ -1,13 +1,10 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { signOut } from "next-auth/react";
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import { useLocale } from "next-intl";
-
 import { 
   Home, 
   Users, 
@@ -35,16 +32,16 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/' },
+  { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/dashboard' },
   { id: 'users', label: 'Users', icon: Users, href: '/users' },
   { id: 'analytics', label: 'Analytics', icon: BarChart3, href: '/analytics' },
-  { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/orders', },
+  { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/orders', badge: '12' },
   { id: 'reports', label: 'Reports', icon: FileText, href: '/reports' },
   { id: 'calendar', label: 'Calendar', icon: Calendar, href: '/calendar' },
   { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
 ];
 
-export default function DashboardAdmin() {
+export default function DashboardMenu() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -108,7 +105,7 @@ export default function DashboardAdmin() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed left-0 top-0 h-full bg-a border-r border-gray-200 z-50 transition-all duration-300 ease-in-out 
+          fixed left-0 top-0 h-full bg-accent border-r border-gray-200 z-50 transition-all duration-300 ease-in-out
           ${isCollapsed ? 'w-24' : 'w-64'}
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
@@ -123,8 +120,10 @@ export default function DashboardAdmin() {
             </div>
           ) : (
             <div className="flex items-center space-x-2">
-              
-              <h2 className="text-lg font-bold text-gray-50">Dashboard</h2>
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">D</span>
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Dashboard</h2>
             </div>
           )}
           {!isCollapsed && (
@@ -133,9 +132,9 @@ export default function DashboardAdmin() {
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
               {window.innerWidth < 1024 ? (
-                <X className="h-5 w-5 text-gray-50" />
+                <X className="h-5 w-5 text-gray-600" />
               ) : (
-                <ChevronLeft className="h-5 w-5 text-gray-50" />
+                <ChevronLeft className="h-5 w-5 text-gray-600" />
               )}
             </button>
           )}
@@ -148,7 +147,7 @@ export default function DashboardAdmin() {
               onClick={toggleSidebar}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              <ChevronRight className="h-5 w-5 text-gray-50" />
+              <ChevronRight className="h-5 w-5 text-gray-600" />
             </button>
           </div>
         )}
@@ -157,7 +156,7 @@ export default function DashboardAdmin() {
         {!isCollapsed && (
           <div className="p-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-700" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search..."
@@ -182,12 +181,12 @@ export default function DashboardAdmin() {
                       flex items-center px-3 py-2 rounded-lg transition-all duration-200 group relative
                       ${isActive 
                         ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25' 
-                        : 'text-gray-50 hover:bg-gray-100'
+                        : 'text-gray-700 hover:bg-gray-100'
                       }
                       ${isCollapsed ? 'justify-start pl-2 w-14 h-12' : 'space-x-3'}
                     `}
                   >
-                    <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-gray-50'}`} />
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-gray-600'}`} />
                     {!isCollapsed && (
                       <>
                         <span className="font-medium">{item.label}</span>
@@ -205,7 +204,7 @@ export default function DashboardAdmin() {
                     )}
                     {/* Tooltip for collapsed state */}
                     {isCollapsed && (
-                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-50 text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                         {item.label}
                         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900"></div>
                       </div>
@@ -221,19 +220,12 @@ export default function DashboardAdmin() {
         <div className="p-2 border-t border-gray-200">
           {!isCollapsed ? (
             <div className="flex items-center space-x-3 px-2">
-            <div className="w-10 h-10 relative rounded-full overflow-hidden">
-  <Image
-    src="/asset/card-3.avif" 
-    alt="Facebook"
-    fill // This makes the image fill the container
-    style={{ 
-      objectFit: 'cover', // This ensures the image covers the area while maintaining aspect ratio
-    }}
-  />
-</div>
+              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">JD</span>
+              </div>
               <div className="flex-1">
-                <p className="text-sm font-bold text-gray-50">John Doe</p>
-                
+                <p className="text-sm font-medium text-gray-900">John Doe</p>
+                <p className="text-xs text-gray-500">Admin</p>
               </div>
               <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                 <LogOut className="h-4 w-4 text-gray-600" />
@@ -241,19 +233,12 @@ export default function DashboardAdmin() {
             </div>
           ) : (
             <div className="flex flex-col items-center space-y-2">
-                        <div className="w-10 h-10 relative rounded-full overflow-hidden">
-  <Image
-    src="/asset/card-3.avif" 
-    alt="Facebook"
-    fill // This makes the image fill the container
-    style={{ 
-      objectFit: 'cover', // This ensures the image covers the area while maintaining aspect ratio
-    }}
-  />
-</div>
+              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">JD</span>
+              </div>
               <div onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })}>   
                 <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors"  >
-                <LogOut className="h-4 w-4 text-gray-50" />
+                <LogOut className="h-4 w-4 text-gray-600" />
               </button>
 
               </div>
@@ -271,16 +256,18 @@ export default function DashboardAdmin() {
       `}>
         <div className="p-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Dashboard as <span className='text-green-700'>Admin</span></h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Dashboard</h1>
             <p className="text-gray-600">
-              This is your main content area. The sidebar is fully responsive.
+              This is your main content area. The sidebar is fully responsive and includes:
             </p>
-            
-
-            <p onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })} className='cursor-pointer mt-10 uppercase'>logout</p>
-            <Link href="/"> <p  className='cursor-pointer mt-10 uppercase'>Back to home page</p>
-            </Link>
-           
+            <ul className="mt-4 space-y-2 text-gray-600">
+              
+              <li> User profile section</li>
+              <li> Notification badges</li>
+              <li> Smooth animations and transitions</li>
+              <li> Clean light theme design</li>
+            </ul>
+            <p onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })}>logout</p>
           </div>
         </div>
       </main>

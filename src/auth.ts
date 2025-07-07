@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-
 // Extend the User and Session types in next-auth
 declare module "next-auth" {
   interface User {
@@ -9,6 +8,7 @@ declare module "next-auth" {
     email?: string | null;
     full_name?: string | null;
     is_superuser?: boolean;
+    is_partner?: boolean;
     address_line_1?: string | null;
     address_line_2?: string | null;
     city?: string | null;
@@ -16,15 +16,12 @@ declare module "next-auth" {
     postalCode?: string | null;
     countryCode?: string | null;
     phoneNumber?: string | null;
-    
   }
 
   interface Session {
     user: User;
   }
 }
-
-
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -38,7 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           // Step 1: Fetch JWT token
           const tokenResponse = await fetch(
-            "https://api.padlev.com/auth/jwt/create/",
+            "https://trustdine-backend.vercel.app/auth/jwt/create/",
             {
               method: "POST",
               headers: {
@@ -61,7 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           // Step 2: Fetch user data using the token
           const userResponse = await fetch(
-            "https://api.padlev.com/api/user/",
+            "https://trustdine-backend.vercel.app/api/user/",
             {
               method: "GET",
               headers: {
@@ -77,19 +74,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           const user = await userResponse.json();
 
-          // Return the user object (this will be stored in the session)
+          // Return the user object with all fields
           return {
-            id: user.id, // Ensure the user object has an `id` field
+            id: user.id,
             email: user.email,
-            name: user.full_name , // Use `name` or `username` as the display name
-            is_superuser: user.is_superuser, // Include the `is_superuser` field
-            address_line_1:user.address_line_1,
-            address_line_2:user.address_line_2,
-            city:user.city,
-            state:user.state,
-            postalCode:user.postalCode,
-            countryCode:user.countryCode,
-            phoneNumber:user.phoneNumber
+            name: user.full_name,
+            is_superuser: user.is_superuser,
+            is_partner: user.is_partner,
+            address_line_1: user.address_line_1,
+            address_line_2: user.address_line_2,
+            city: user.city,
+            state: user.state,
+            postalCode: user.postalCode,
+            countryCode: user.countryCode,
+            phoneNumber: user.phoneNumber
           };
         } catch (error) {
           console.error("Authorization error:", error);
@@ -97,28 +95,54 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
       },
     }),
-
   ],
-  secret: process.env.NEXTAUTH_SECRET, // Ensure this is set in your environment
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
   callbacks: {
-
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // Add user ID to the token
-        token.is_superuser = user.is_superuser; // Add `is_superuser` to the token
+        // Include all user fields in the token
+        return {
+          ...token,
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          is_superuser: user.is_superuser,
+          is_partner: user.is_partner, // Correct spelling here
+          address_line_1: user.address_line_1,
+          address_line_2: user.address_line_2,
+          city: user.city,
+          state: user.state,
+          postalCode: user.postalCode,
+          countryCode: user.countryCode,
+          phoneNumber: user.phoneNumber
+        };
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id as string; // Add user ID to the session
-      session.user.is_superuser = token.is_superuser as boolean; // Add `is_superuser` to the session
+      // Include all fields from token in the session
+      session.user = {
+        ...session.user,
+        id: token.id as string,
+        email: token.email as string,
+        full_name: token.name as string,
+        is_superuser: token.is_superuser as boolean,
+        is_partner: token.is_partner as boolean, // Fix this typo!
+        address_line_1: token.address_line_1 as string | null,
+        address_line_2: token.address_line_2 as string | null,
+        city: token.city as string | null,
+        state: token.state as string | null,
+        postalCode: token.postalCode as string | null,
+        countryCode: token.countryCode as string | null,
+        phoneNumber: token.phoneNumber as string | null
+      };
       return session;
     },
   },
   pages: {
-    signIn: "/login-signin", // Custom sign-in page
+    signIn: "/login", 
   },
 });

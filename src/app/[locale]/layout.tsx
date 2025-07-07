@@ -20,6 +20,7 @@ import HomeNav from "@/components/header/Home-Nav";
 import { Playfair_Display } from 'next/font/google'
 
 
+
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -208,6 +209,12 @@ export default async function RootLayout({
   setRequestLocale(locale);
   const messages = await getMessages({locale});
 
+
+
+
+
+
+  
   if (!messages) {
     return notFound();
   }
@@ -323,13 +330,11 @@ export default async function RootLayout({
         <SessionProvider>
          
             <CartProvider>   
-            <HomeNav/>
+           
             
               {children}
-              <YandexMetrika />
-              <Footer/>
-              <End/>
-              <ScrollToTopButton/>
+              <YandexMetrika /> 
+            
             </CartProvider>  
         
         </SessionProvider>  

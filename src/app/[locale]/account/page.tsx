@@ -1,12 +1,14 @@
 "use client";
 
 import { useSession} from "next-auth/react";
-import Dashboard from "@/components/admin-dashboard/dashboard";
+import DashboardAdmin from "@/components/admin-dashboard/dashboard";
 import DashboardUser from "@/components/user-dashboard/dashboarduser";
+import DashboardPartner from "@/components/partner-dashboard/partner-dashboard";
+
 
 export default function ProtectedPage() {
   const { data: session, status } = useSession({ required: true });
-
+console.log(session?.user)
   if (status === "loading") {
     return ( <div className="font-sans mx-6 md:mx-16 custom:mx-60 py-12">
       <div className="grid lg:grid-cols-4 gap-10 mt-6">
@@ -20,5 +22,5 @@ export default function ProtectedPage() {
     </div>  
     </div>);
   }
-  return session?.user?.is_superuser? <Dashboard/> :  <DashboardUser/>
+  return session?.user?.is_superuser? <DashboardAdmin/> :  ( session?.user?.state =="p" ? <DashboardPartner/>:<DashboardUser/>)
 }
