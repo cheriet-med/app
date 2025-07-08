@@ -250,7 +250,7 @@ export default function DashboardPartner() {
                   }}
                 />
               </div>
-              <div onClick={() => signOut({ callbackUrl: `/${locale}/login` })}>   
+              <div onClick={() => signOut({ callbackUrl: `/en/login` })}>   
                 <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors"  >
                 <LogOut className="h-4 w-4 text-gray-600" />
               </button>
