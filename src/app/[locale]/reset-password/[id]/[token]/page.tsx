@@ -89,7 +89,7 @@ export default function ResetPassword() {
       return false;
     }finally{
         setIsLoadingg(false);
-        {session?.user ? router.push(`/${l}/account`): router.push(`/${l}/login-signin`)}
+        {session?.user ? router.push(`/${l}/account`): router.push(`/${l}/login`)}
         
     }
   };
@@ -100,8 +100,10 @@ export default function ResetPassword() {
 
 
   return (
-    <div className='my-40 mx-6 md:mx-auto md:w-96'>
-        <h1 className='uppercase font-medium mb-4'> {te('reset-password')}write your new password</h1>
+     <div className="fixed inset-0 bg-[url('/02.webp')] bg-no-repeat bg-center bg-cover overflow-auto">
+      <div className="min-h-screen flex items-center justify-center p-4 font-montserrat">
+    <div className=' bg-secondary p-6 rounded-2xl'>
+        <h1 className=' mb-4 text-gray-100'> {te('reset-password')}write your new password</h1>
         <div>
         <div className="relative ">
                     <input
@@ -109,25 +111,17 @@ export default function ResetPassword() {
      value={password}
      onChange={(e) => setPassword(e.target.value)}
      placeholder="New password"
-     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-yel"
+     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-yel bg-highlights placeholder:text-gray-200"
      required
    />
-    {locale == "ar" ? 
-               <button
-                 type="button"
-                 onClick={() => setShowPassword(!showPassword)}
-                 className="absolute left-2 top-2 text-gray-500 hover:text-gray-700 flex items-center justify-center w-6 h-6"
-               >
-                 {showPassword ? <FaEyeSlash className="w-5 h-5"/> : <FaEye className="w-5 h-5" />}
-               </button>
-               : <button
+<button
                type="button"
                onClick={() => setShowPassword(!showPassword)}
-               className="absolute right-2 top-2 text-gray-500 hover:text-gray-700 flex items-center justify-center w-6 h-6"
+               className="absolute right-2 top-2 text-gray-200 hover:text-gray-300 flex items-center justify-center w-6 h-6"
              >
-               {showPassword ? <FaEyeSlash className="w-5 h-5"/> : <FaEye className="w-5 h-5" />}
+               {showPassword ? <FaEyeSlash className="w-5 h-5"/> : <FaEye className="w-5 h-5 " />}
              </button>
-             }
+             
              </div>
     {error2 && <p className="text-bl text-sm mt-2">{error2}</p>}
                 </div>
@@ -136,7 +130,7 @@ export default function ResetPassword() {
                     {isLoadingg ? (
                                     <button
                                       onClick={handleSubscribe}
-                                      className="w-full hover:bg-secondary hover:text-yel py-2 rounded-lg bg-yel ext-black transition-colors uppercase flex gap-3 justify-center items-center"
+                                      className="w-full hover:bg-accent hover:text-yel py-2 rounded-lg bg-a text-white transition-colors uppercase flex gap-3 justify-center items-center"
                                     >
                                        {te('Edite')}
                                       <FaCircleNotch className="animate-spin w-5 h-5"/>
@@ -144,12 +138,14 @@ export default function ResetPassword() {
                                   ) : (
                                     <button
                                       onClick={handleSubscribe}
-                                      className="w-full bg-secondary text-yel py-2 rounded-lg hover:bg-yel font-medium hover:text-black transition-colors uppercase"
+                                      className="w-full bg-a text-white py-2 rounded-lg hover:bg-accent font-medium transition-colors uppercase"
                                     >
                                      {te('Edite')}
                                     </button>
                                   )}
                 </div>
+    </div>
+    </div>
     </div>
   )
 }
