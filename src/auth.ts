@@ -30,7 +30,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: "openid email profile"
+          scope: "openid email profile",
+          redirect_uri: "https://trustdi.netlify.app/api/auth/callback/google" // Add this
         }
       }
     }),

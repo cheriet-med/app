@@ -303,25 +303,7 @@ export default async function RootLayout({
     type="application/ld+json"
     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
   />
- {/* SwG Script */}
- <Script
-          src="https://news.google.com/swg/js/v1/swg-basic.js"
-          strategy="afterInteractive"
-          async
-          type="application/javascript"
-        />
-        <Script id="swg-init" strategy="afterInteractive">
-          {`
-            (self.SWG_BASIC = self.SWG_BASIC || []).push(basicSubscriptions => {
-              basicSubscriptions.init({
-                type: "NewsArticle",
-                isPartOfType: ["Product"],
-                isPartOfProductId: "CAow5Nq-DA:openaccess",
-                clientOptions: { theme: "light", lang: "en-GB" },
-              });
-            });
-          `}
-        </Script>
+
 
       </head>
       <body > 

@@ -30,10 +30,9 @@ export default function SignInPage() {
   const [enteremail, setEnteremail] = useState(false);
 
 
-
 const handleGoogleLogin = () => {
-    signIn("google", { callbackUrl: "/account" });
-  };
+  signIn("google", { callbackUrl: "/en/account" });
+};
 
 
   const isValidEmail = async (email: string): Promise<{ valid: boolean; message?: string }> => {
@@ -280,7 +279,7 @@ const handleGoogleLogin = () => {
         
            </Link>
            
-          <button className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent">
+          <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer">
   <Image
     src="/facebook.png" 
     alt="Facebook"
@@ -288,18 +287,18 @@ const handleGoogleLogin = () => {
     height={20}
   />
   Continue with Facebook
-</button>
-                    <button className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent"
+</div>
+                    <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer"
                     onClick={handleGoogleLogin}
                     >
   <Image
     src="/google.png" 
-    alt="Facebook"
+    alt="google"
     width={20}
     height={20}
   />
   Continue with Google
-</button>
+</div>
           </div>
           
         </form>

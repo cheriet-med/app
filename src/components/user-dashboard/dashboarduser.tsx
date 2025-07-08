@@ -276,7 +276,7 @@ export default function DashboardUser() {
             </p>
             
 
-            <p onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })} className='cursor-pointer mt-10 uppercase'>logout</p>
+            <p onClick={() => signOut({ callbackUrl: `/${locale}/login` })} className='cursor-pointer mt-10 uppercase'>logout</p>
               <Link href="/"> <p  className='cursor-pointer mt-10 uppercase'>Back to home page</p>
                         </Link>
           </div>
