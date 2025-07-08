@@ -34,7 +34,9 @@ const handleGoogleLogin = () => {
   signIn("google", { callbackUrl: "/en/account" });
 };
 
-
+const handleFacebookleLogin = () => {
+  signIn("facebook", { callbackUrl: "/en/account" });
+};
   const isValidEmail = async (email: string): Promise<{ valid: boolean; message?: string }> => {
     if (!email || email.trim() === "") {
       return { valid: false, message: t('Email-is-required') };
@@ -180,8 +182,8 @@ const handleGoogleLogin = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[url('/01.webp')] bg-no-repeat bg-center bg-cover overflow-auto">
-      <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-[url('/02.webp')] bg-no-repeat bg-center bg-cover overflow-auto">
+      <div className="min-h-screen flex items-center justify-center p-4 font-montserrat">
         <form 
           onSubmit={handleSubmit} 
           className="w-full max-w-md bg-secondary px-8 pb-12 rounded-2xl shadow-lg"
@@ -208,7 +210,7 @@ const handleGoogleLogin = () => {
                 type="email"
                 name="email"
                 placeholder={t('email')}
-                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights bg-highlights placeholder:text-gray-200"
+                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights bg-highlights placeholder:text-gray-200 text-a"
                 onChange={(e) => setEmail(e.target.value)}
                 //required
               />
@@ -220,7 +222,7 @@ const handleGoogleLogin = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder={t('password')}
-                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200"
+                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200 text-a"
                 onFocus={handlePasswordFocus}
                 //required
               />
@@ -279,7 +281,9 @@ const handleGoogleLogin = () => {
         
            </Link>
            
-          <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer">
+          <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer"
+          onClick={handleFacebookleLogin}
+          >
   <Image
     src="/facebook.png" 
     alt="Facebook"
@@ -301,6 +305,7 @@ const handleGoogleLogin = () => {
 </div>
           </div>
           
+          <p className="text-xs text-white mt-4">By continuing you indicate that you agree to trustdine <span className="font-bold underline"><Link href="/terms-and-conditions">Terms of Service</Link> </span> and <span className="font-bold underline"><Link href="/privacy-policy">Privacy Policy.</Link></span></p>
         </form>
       </div>
     </div>

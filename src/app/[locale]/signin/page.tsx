@@ -156,6 +156,7 @@ export default function SignInPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Token "+process.env.NEXT_PUBLIC_TOKEN,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -170,7 +171,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="fixed inset-0 bg-[url('/01.webp')] bg-no-repeat bg-center bg-cover overflow-auto">
+    <div className="fixed inset-0 bg-[url('/02.webp')] bg-no-repeat bg-center bg-cover overflow-auto">
       <div className="min-h-screen flex items-center justify-center p-4">
         <form 
           onSubmit={handleSubmit} 
@@ -198,7 +199,8 @@ export default function SignInPage() {
                 type="email"
                 name="email"
                 placeholder={t('email')}
-                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200"                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200 text-a"               
+                onChange={(e) => setEmail(e.target.value)}
                 //required
               />
               {error1 && <p className="text-background text-sm mt-1">{error1}</p>}
@@ -209,7 +211,8 @@ export default function SignInPage() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder={t('password')}
-                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200"                onFocus={handlePasswordFocus}
+                className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200 text-a"       
+                onFocus={handlePasswordFocus}
                 //required
               />
               <button
@@ -276,7 +279,8 @@ export default function SignInPage() {
             
           </div>
         
-         
+                 <p className="text-xs text-white mt-4">By continuing you indicate that you agree to trustdine <span className="font-bold underline"><Link href="/terms-and-conditions">Terms of Service</Link> </span> and <span className="font-bold underline"><Link href="/privacy-policy">Privacy Policy.</Link></span></p>
+  
         </form>
       </div>
     </div>
