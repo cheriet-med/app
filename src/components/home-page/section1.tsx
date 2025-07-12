@@ -194,7 +194,7 @@ export default function ScrollAnimation() {
 
   return (
     <div className=" text-secondary bg-background overflow-x-hidden">
-      <section className="hero w-full h-screen p-6 md:p-10 pt-16 md:pt-16 flex flex-col justify-between md:justify-end gap-8 md:gap-0 hidden md:block">
+      <section className="hero box-border h-screen p-6 md:p-10 pt-16 md:pt-16 flex flex-col justify-between md:justify-end gap-8 md:gap-0 hidden md:block">
         <h1 className="relative -left-1 uppercase font-bold text-[19vw] md:text-[12vw] leading-none tracking-tight font-playfair">
          Taste & Trust
         </h1>
@@ -205,14 +205,14 @@ export default function ScrollAnimation() {
         </div>
       </section>
 
-      <section className="intro w-full h-96 md:h-screen p-6 md:p-10">
+      <section className="intro box-border h-96 md:h-screen p-6 md:p-10">
         <div 
           ref={videoContainerRef}
           className="video-container-desktop hidden md:flex flex-col gap-8 will-change-transform relative"
           style={{ transform: 'translateY(-105%) scale(0.25)' }}
         >
-          <div className="video-preview relative w-full aspect-video rounded-3xl bg-[#b9b9b3] overflow-hidden">
-            <div className="video-wrapper absolute top-0 left-0 w-full h-full rounded-3xl overflow-hidden">
+          <div className="video-preview relative box-border aspect-video rounded-3xl bg-[#b9b9b3] overflow-hidden">
+            <div className="video-wrapper absolute top-0 left-0 box-border h-full rounded-3xl overflow-hidden">
               <video 
             autoPlay 
             loop 
@@ -238,8 +238,8 @@ export default function ScrollAnimation() {
         </div>
 
         <div className="video-container-mobile flex md:hidden flex-col gap-4 w-full max-w-[800px] mx-auto ">
-          <div className="video-preview relative w-full aspect-video rounded-3xl bg-[#b9b9b3] overflow-hidden">
-            <div className="video-wrapper absolute top-0 left-0 w-full h-full rounded-3xl overflow-hidden">
+          <div className="video-preview relative box-border aspect-video rounded-3xl bg-[#b9b9b3] overflow-hidden">
+            <div className="video-wrapper absolute top-0 left-0 box-border h-full rounded-3xl overflow-hidden">
               <video 
             autoPlay 
             loop 
@@ -264,7 +264,7 @@ export default function ScrollAnimation() {
         </div>
       </section>
 
-      <section className="outro w-full h-80 p-6 md:p-10 flex justify-center items-center hidden md:block">
+      <section className="outro box-border h-80 p-6 md:p-10 flex justify-center items-center hidden md:block">
        
       </section>
     </div>

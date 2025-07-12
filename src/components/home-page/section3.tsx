@@ -122,18 +122,18 @@ const ScrollAnimationGallery = () => {
   return (
     <div ref={containerRef} className="relative">
      
-      <section className="relative w-screen overflow-hidden bg-secondary">
+      <section className="relative box-border overflow-hidden bg-secondary">
 {/**<div className='h-96 flex gap-20 flex-wrap lg:flex-nowrap bg-secondary px-72 py-20 text-white'>
    <h1 className='text-6xl font-bold flex-2 font-playfair'>Discrover More</h1>
         <p className='flex-1'>This implementation maintains both animation behaviors while keeping them separate and organized. The feature cards will animate first as you scroll, followed by the testimonial cards animation.</p>
 </div> */}
 
         {gridLayout.map((row, rowIndex) => (
-          <div key={rowIndex} className="gallery-row w-screen flex">
+          <div key={rowIndex} className="gallery-row box-border flex">
             {row.map((imageIndex, colIndex) => (
               <div key={colIndex} className="flex-1 aspect-square">
                 {imageIndex !== null && (
-                  <div className={`img-container relative w-full h-full will-change-transform rounded-xl ${
+                  <div className={`img-container relative box-border h-full will-change-transform rounded-xl ${
                     images[imageIndex].origin === 'left' ? 'origin-left' : 'origin-right'
                   }`}>
                     <img

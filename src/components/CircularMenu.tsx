@@ -56,7 +56,7 @@ export default function CircularMenu() {
   const menuSelectSound = useRef<HTMLAudioElement | null>(null);
   const { data: session, status } = useSession();
   const menuItems: MenuItem[] = [
-    { label: "Booke", icon: <IoRestaurant />, href: "/" },
+    { label: "Booke", icon: <IoRestaurant />, href: "/en/booking" },
     { label: "Be partner", icon: <FaPeopleGroup />, href: "/" },
     { label: status === "authenticated" ? "My Account" :"Sign in", icon: <FaUser />, href: status === "authenticated" ? "/en/account" :"/en/login" },
     { label: "Trust Score", icon: <MdOutlineCreditScore />, href: "/" },

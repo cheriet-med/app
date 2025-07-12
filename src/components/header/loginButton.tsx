@@ -8,6 +8,8 @@ import { FiUser } from "react-icons/fi";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { RiCloseLargeLine } from "react-icons/ri";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+
 
 
 import Image from "next/image";
@@ -37,7 +39,13 @@ const LoginButton: React.FC = () => {
   const [emailsend, setEmailsend] = useState(false);
   const [emailsenderror, setEmailsenderror] = useState(false);
   const [enteremail, setEnteremail] = useState(false);
+const handleGoogleLogin = () => {
+  signIn("google");
+};
 
+const handleFacebookleLogin = () => {
+  signIn("facebook");
+};
 
   const isValidEmail = async (email: string): Promise<{ valid: boolean; message?: string }> => {
     // Step 1: Check if the email is empty or null
@@ -205,7 +213,7 @@ const LoginButton: React.FC = () => {
       if (result?.error) {
         setError(t('Please-verify-your-email-or-password')); // Set error message
       } else {
-        router.push(`/${locale}/account`); // Redirect to protected page
+        ""
       }
     } catch (err) {
       setError(t('An-error-occurred-during-sign-in')); // Set generic error message
@@ -264,16 +272,10 @@ const LoginButton: React.FC = () => {
       {/* Button to open the dialog */}
 
       <div 
-  className="relative group cursor-pointer  hidden custom:block" 
+ className="absolute right-4 top-4 z-10 p-1 rounded-full bg-white/80 hover:bg-white transition-colors group"
   onClick={() => setIsOpen(true)}
 >
-  <p className="relative inline-block text-bl hover:text-primary font-semibold pb-4 ">
-    Sign in
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-  </p>
-  <span className="ml-1.5 -translate-y-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-white">
-    1
-  </span>
+<FaRegHeart size={24} className="text-gray-600 group-hover:text-accent transition-colors" />
 </div>
 
 
@@ -281,161 +283,127 @@ const LoginButton: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div
             ref={dialogRef} // Attach the ref to the dialog container
-            className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative"
+            className="bg-secondary rounded-xl shadow-xl p-6 max-w-md w-full relative"
           >
             {/* Close Button */}
-            {l === "ar" ? (
+           
               <RiCloseLargeLine
                 size={24}
-                className="absolute top-2 left-2 text-primary hover:text-gray-700 cursor-pointer"
+                className="absolute top-4 right-4 text-white hover:text-accent cursor-pointer"
                 onClick={() => setIsOpen(false)}
               />
-            ) : (
-              <RiCloseLargeLine
-                size={24}
-                className="absolute top-2 right-2 text-primary hover:text-gray-700 cursor-pointer"
-                onClick={() => setIsOpen(false)}
-              />
-            )}
+           
 
             {/* Scrollable Content */}
-            <div className="max-h-[70vh] overflow-y-auto">
-   <div className=" flex flex-col ">
-   <div className="flex justify-center">
-  <div className="relative h-40 w-60">
-    <Image
-      src="/log.png"
-      alt={te('logo-padlev-yellow')}
-      sizes="100%"
-      fill
-      style={{ objectFit: "contain" }}
-      priority
-    />
-  </div>
-</div>
+            <div className="max-h-[70vh] overflow-y-auto ">
+   <div className=" flex flex-col py-7">
+
         <form onSubmit={handleSubmit} className="space-y-4">
          
-          <h2 className="text-primary font-semibold uppercase ">
-          {t('text-3')}
+           <h2 className="text-white text-sm  font-medium mb-3">
+            {t('text-3')}
           </h2>
    
-          <input
-            type="email"
-            name="email"
-            placeholder={t('email')}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 placeholder-bl focus:ring-primary"
+         <div className="space-y-4">
+                    <div>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder={t('email')}
+                        className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights bg-highlights placeholder:text-gray-200 text-a"
+                        onChange={(e) => setEmail(e.target.value)}
+                        //required
+                      />
+                      {error1 && <p className="text-background text-sm mt-1">{error1}</p>}
+                    </div>
+        
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        placeholder={t('password')}
+                        className="w-full px-4 py-3 border border-highlights rounded-lg focus:outline-none focus:ring-2 focus:ring-highlights pr-12 bg-highlights placeholder:text-gray-200 text-a"
+                        //onFocus={handlePasswordFocus}
+                        //required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-200 hover:text-gray-300"
+                      >
+                        {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                      </button>
+                    </div>
+                    {error2 && <p className="text-background text-sm">{error2}</p>}
+        
+                    {error && <p className="text-background text-sm text-center">{error}</p>}
+        
+                    
+                      <button 
+                        type="button"
+                        onClick={resetPassword}
+                        className="text-sm text-accent hover:underline"
+                      >
+                        Forgot your password?
+                      </button>
+                  
+        
+                    {emailsend && <p className="text-background text-sm text-center">{t('emailsend')}</p>}
+                    {emailsenderror && <p className="text-background text-sm text-center">{t('emailsenderror')}</p>}
+                    {enteremail && <p className="text-background text-sm text-center">{t('enteremail')}</p>}
+        
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`w-full py-3 rounded-lg font-medium  transition-colors text-white ${
+                        isLoading 
+                          ? "bg-a text-black flex items-center justify-center gap-2"
+                          : "bg-a text-black hover:bg-accent"
+                      }`}
+                    >
+                      {isLoading ? (
+                        <>
+                         Login <FaCircleNotch className="animate-spin" />
+                        </>
+                      ) : (
+                        "Login"
+                      )}
+                    </button>
+                    
+                  </div>
+        
+                  <p className="text-white py-2 text-center">Or</p>
+                  <div className="flex flex-col gap-3">
+                 
+                   
+                  <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer"
+                  onClick={handleFacebookleLogin}
+                  >
+          <Image
+            src="/facebook.png" 
+            alt="Facebook"
+            width={20}
+            height={20}
           />
-          {error1 && <p className="text-bl text-sm">{error1}</p>}
-
-          <p className="text-primary text-xs">
-          {t('text-4')}
-          </p>
-
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder={t('password')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 placeholder-bl focus:ring-primary"
-              onFocus={handlePasswordFocus}
-            />
-           {locale == "ar" ? 
-            <button
-            aria-label= {t('sign in')}
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute left-2 top-2 text-gray-200 hover:text-gray-700 flex items-center justify-center w-6 h-6"
-            >
-              {showPassword ? <FaEyeSlash className="w-5 h-5"/> : <FaEye className="w-5 h-5" />}
-            </button>
-            : <button
-
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-2 top-2 text-primary hover:text-gray-700 flex items-center justify-center w-6 h-6"
-          >
-            {showPassword ? <FaEyeSlash className="w-5 h-5"/> : <FaEye className="w-5 h-5" />}
-          </button>
-          }
-          </div>
-          {passwordSuggestion && (
-            <div className="flex items-center gap-2  flex-wrap">
-              <p className="text-primary text-sm ">
-              {t('text-5')} 
-              </p>
-              <div className='space-x-2'>
-              <span className="font-semibold text-primary">{passwordSuggestion} </span>
-              <button
-               aria-label= {t('sign in')}
-                type="button"
-                onClick={handleCopyPassword}
-                className="text-primary hover:text-gray-700"
-              >
-                <FaCopy className="w-3 h-3"/>
-              </button>
-              {isCopied && <span className="text-sm text-green-500">{t('Copied')}</span>}
-              </div>
-              
+          Continue with Facebook
+        </div>
+                            <div className="w-full py-3 px-4 rounded-lg font-medium transition-colors text-white border border-white flex items-center justify-center gap-3 hover:bg-accent cursor-pointer"
+                            onClick={handleGoogleLogin}
+                            >
+          <Image
+            src="/google.png" 
+            alt="google"
+            width={20}
+            height={20}
+          />
+          Continue with Google
+        </div>
+                  </div>
+                  
+                  <p className="text-xs text-white mt-4">By continuing you indicate that you agree to trustdine <span className="font-bold underline"><Link href="/terms-and-conditions">Terms of Service</Link> </span> and <span className="font-bold underline"><Link href="/privacy-policy">Privacy Policy.</Link></span></p>
+           </form>
             </div>
-          )}
-          {error2 && <p className="text-bl text-sm">{error2}</p>}
-          {error && <p className="text-bl text-sm">{error}</p>}
-
-          <p className="text-primary text-sm">
-          {t('text-6')}{" "} <span className="font-semibold underline cursor-pointer" onClick={resetPassword}> {t('text-7')}</span></p>
-          {emailsend? <p className='text-bl text-sm'>{t('emailsend')}</p>:""}
-          {emailsenderror? <p  className='text-bl text-sm'>{t('emailsenderror')}</p>:""}
-          {enteremail? <p  className='text-bl text-sm'>{t('enteremail')}</p> :""}
-
-
-          
-          {isLoading ? (
-            <button
-            aria-label= {t('sign in')}
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-secondary text-white py-2 rounded-lg hover:bg-yel font-medium hover:text-gray-20 transition-colors uppercase flex gap-3 justify-center items-center"
-            >
-                {t('sign in')} <FaCircleNotch className="animate-spin w-5 h-5"/>
-            </button>
-          ) : (
-            <button
-            aria-label= {t('sign in')}
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-secondary text-white py-2 rounded-lg hover:bg-yel font-medium hover:text-gray-200 transition-colors uppercase"
-            >
-              {t('sign in')}
-            </button>
-          )}
-         
-        </form>
-      </div>
-<div className='flex flex-col justify-center text-center items-center pt-5 gap-3'>
-
-<p className='uppercase font-bold '>Or</p>
-<button
-    aria-label=""
-    type="button"
-    disabled={isLoading}
-    className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium uppercase"
-  >
-    <img src="/google.png" alt="Google" className="w-5 h-5" />
-    Continue with Google
-  </button>
-  <button
-    aria-label=""
-    type="button"
-    disabled={isLoading}
-    className="w-full flex items-center justify-center gap-2 bg-[#1877F2] text-white py-2 rounded-lg hover:bg-[#145dbf] transition-colors font-medium uppercase"
-  >
-    <img src="/facebook.png" alt="Facebook" className="w-5 h-5" />
-    Continue with Facebook
-  </button>
-<p className='text-primary text-xs'>By continuing, you agree to TrustDine's <span className='font-bold underline cursor-pointer'>Terms of Service</span> and acknowledge that you have read our <span className='font-bold underline cursor-pointer'>Privacy Policy</span></p>
-</div>
+            
 
             </div>
           </div>

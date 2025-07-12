@@ -4,6 +4,8 @@ import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import CustomEase from 'gsap/CustomEase';
 gsap.registerPlugin(CustomEase);
+import Link from 'next/link';
+
 
 export default function CombatLanding() {
   // Single element refs
@@ -90,10 +92,10 @@ export default function CombatLanding() {
   }, []);
 
   return (
-    <div className="relative h-screen w-screen bg-a font-sans">
+    <div className="relative h-screen bg-a font-sans">
       <div 
         ref={heroRef}
-        className="relative w-full h-screen bg-secondary  flex flex-col justify-between"
+        className="relative h-screen bg-secondary  flex flex-col justify-between"
         style={{ clipPath: 'polygon(0% 45%, 0% 45%, 0% 55%, 0% 55%)' }}
       >
         <div 
@@ -117,7 +119,7 @@ export default function CombatLanding() {
             loop 
             muted 
             playsInline 
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover opacity-80 rounded-2xl"
+            className="absolute top-1/2 left-1/2  min-h-full object-cover opacity-80 rounded-2xl"
             style={{ 
               transform: 'translate(-50%, -50%)',
               width: '100%',
@@ -129,13 +131,19 @@ export default function CombatLanding() {
           </video>
         </div>
 
-        <div className="absolute top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center pt-64">
-          <h1 className="w-full text-center uppercase text-4xl md:text-6xl custom:text-7xl leading-[0.85] tracking-[-0.25rem] text-white font-semibold font-playfair">
+        <div className="absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center pt-64">
+          <h1 className=" text-center uppercase text-4xl md:text-6xl custom:text-7xl leading-[0.85] tracking-[-0.25rem] text-white font-semibold font-playfair">
             <span ref={setHeaderSpanRef(0)} className="block transform translate-y-full select-none" style={{ wordSpacing: '0.1em' }}>Rewarding diners</span>
           </h1>
-          <h1 className="w-full text-center text-3xl md:text-5xl custom:text-5xl leading-[0.85] tracking-[-0.25rem] text-white font-playfair">
+          <h1 className=" text-center text-3xl md:text-5xl custom:text-5xl leading-[0.85] tracking-[-0.25rem] text-white font-playfair">
             <span ref={setHeaderSpanRef(1)} className="block transform translate-y-full select-none" style={{ wordSpacing: '0.2em' }}>Empowering trusted places</span>
           </h1>
+          <Link href="/en/booking">
+           <button  ref={setHeaderSpanRef(2)} className="mt-6 w-80 p-3 rounded-2xl font-bold transition-colors text-white border border-white border-2 hover:bg-secondary" >
+           BOOK NOW
+          </button>
+          </Link>
+          
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ import ScrollToTopButton from '@/components/home-page/TopButton';
 import Footer from '@/components/footer/footer';
 import End from '@/components/footer/end';
 import { SessionProvider } from "next-auth/react";
-import { CartProvider } from "@/components/cart";
+import { WishlistProvider } from "@/components/cart";
 import {getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import Script from 'next/script'
@@ -306,18 +306,18 @@ export default async function RootLayout({
 
 
       </head>
-      <body > 
+      <body className=" bg-gray-50"> 
         <NextIntlClientProvider locale={locale} messages={messages} >  
        
         <SessionProvider>
          
-            <CartProvider>   
+            <WishlistProvider>   
            
             
               {children}
               <YandexMetrika /> 
             
-            </CartProvider>  
+            </WishlistProvider>  
         
         </SessionProvider>  
          </NextIntlClientProvider>  

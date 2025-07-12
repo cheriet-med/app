@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     config.cache = false;
     return config;
   },
-
+reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
         pathname: '/ds9qj3exf/**',
       },
     ],
+     
   },
 
   // Add these new video optimizations:
@@ -47,7 +48,7 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
-
+transpilePackages: ['leaflet'],
   // Enable AVIF/WebP for videos in Image component
   experimental: {
     optimizePackageImports: ['next-video'],

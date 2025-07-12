@@ -6,7 +6,7 @@ import DashboardMenu from '@/components/header/adminMenu';
 export default async function PrivacyPolicy() {
  
   return (
-  <div className='h-96'>
+  <div className='m-32'>
     <p>Privacy Policy</p>
   </div>
   );
