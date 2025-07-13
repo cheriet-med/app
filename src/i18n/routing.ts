@@ -15,6 +15,7 @@ export const routing = defineRouting({
     "/became-a-partner":"/became-a-partner",
     "/search-hotel":"/search-hotel",
     "/search-restaurant":"/search-restaurant",
+    "/id":"/id",
     "/search": {
       en: "/search",
       fr: "/recherche",

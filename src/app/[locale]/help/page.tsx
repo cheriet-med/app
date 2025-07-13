@@ -1,8 +1,10 @@
+'use client'
 import React from 'react';
-import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
+
+
+import ModernDateRangePicker from '@/components/Data/datePicker';
 export default async function TermsAndConditions() {
-  const t = await getTranslations('TermsAndConditions');
+
 
   return (
     <div className="max-w-4xl mx-auto py-40 px-4 sm:px-6 lg:px-8 text-primary">
@@ -13,7 +15,7 @@ export default async function TermsAndConditions() {
       </header>
       <p>In a quiet town nestled between rolling hills and winding rivers, a curious idea took root. People gathered not for fame or fortune, but to build something meaningful an echo of forgotten dreams and new beginnings. Every corner buzzed with potential, every morning felt like a blank page. Amid the laughter and setbacks, a quiet determination grew, reminding them all that sometimes, the most unexpected journeys lead to the most extraordinary destinations.</p>
 
-    
+    <ModernDateRangePicker/>
     </div>
   );
 }

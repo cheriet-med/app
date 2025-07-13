@@ -11,6 +11,7 @@ import { useWishlist } from "../cart";
 import { useSession} from "next-auth/react";
 import LoginButton from "../header/loginButton";
 import { Hotels } from "./hotels";
+import Link from "next/link";
 
 interface PropertyCardProps {
   id: string | number | any;
@@ -101,14 +102,14 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
            (
             <LoginButton />
           )}
-     
+      <Link href="/en/id">
         <img
           alt="Property"
           src={imageUrl}
           className="h-80 sm:h-40 md:h-55 custom:h-80 w-full rounded-md object-cover"
-        />
+        /></Link>
       </div>
-
+ <Link href="/en/id">
       <div className="mt-2 flex flex-col gap-1">
        
             
@@ -128,7 +129,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
      
           <dd className="text-sm text-gray-500">{price}</dd>
         
-      </div>
+      </div></Link>
     </div>
   );
 };
