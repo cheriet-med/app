@@ -57,11 +57,11 @@ export default function CircularMenu() {
   const { data: session, status } = useSession();
   const menuItems: MenuItem[] = [
     { label: "Booke", icon: <IoRestaurant />, href: "/en/booking" },
-    { label: "Be partner", icon: <FaPeopleGroup />, href: "/" },
+    { label: "Be partner", icon: <FaPeopleGroup />, href: "/en/partner" },
     { label: status === "authenticated" ? "My Account" :"Sign in", icon: <FaUser />, href: status === "authenticated" ? "/en/account" :"/en/login" },
-    { label: "Trust Score", icon: <MdOutlineCreditScore />, href: "/" },
-    { label: "Help Center", icon: <FaHandsHelping />, href: "/" },
-    { label: "About Us", icon: <FaBookReader />, href: "/" },
+    { label: "Trust Score", icon: <MdOutlineCreditScore />, href: "/en/trust-score" },
+    { label: "Help Center", icon: <FaHandsHelping />, href: "/en/help-center" },
+    { label: "About Us", icon: <FaBookReader />, href: "/en/about-us" },
   ];
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -517,9 +517,9 @@ export default function CircularMenu() {
             Copyright &copy; 2025 All Rights Reserved
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-white uppercase font-montserrat text-xs">Cookie Settings</a>
-            <a href="#" className="text-white uppercase font-montserrat text-xs">Privacy Policy</a>
-            <a href="#" className="text-white uppercase font-montserrat text-xs">Legal Disclaimer</a>
+            <Link href="/en/cookies-policy" className="text-white uppercase font-montserrat text-xs">Cookie Settings</Link>
+            <Link href="/en/privacy-policy" className="text-white uppercase font-montserrat text-xs">Privacy Policy</Link>
+            <Link href="/en/terms-and-conditions" className="text-white uppercase font-montserrat text-xs">Terms and Conditions</Link>
           </div>
         </div>
       </div>

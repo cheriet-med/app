@@ -1,19 +1,38 @@
+'use client'
 import React from 'react';
-import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
-export default async function TermsAndConditions() {
-  const t = await getTranslations('TermsAndConditions');
 
+
+const Privacy: React.FC = () => {
+  
   return (
-    <div className="max-w-4xl mx-auto py-40 px-4 sm:px-6 lg:px-8 text-primary">
-      {/* Page Header */}
-      <header className="mb-10">
-        <h1 className="text-2xl uppercase">{t('title')}</h1>
-       {/*  <p className="mt-2 text-lg text-gray-600">Last Updated: 01-01-2025</p> */}
-      </header>
-      <p>In a quiet town nestled between rolling hills and winding rivers, a curious idea took root. People gathered not for fame or fortune, but to build something meaningful an echo of forgotten dreams and new beginnings. Every corner buzzed with potential, every morning felt like a blank page. Amid the laughter and setbacks, a quiet determination grew, reminding them all that sometimes, the most unexpected journeys lead to the most extraordinary destinations.</p>
+    <div >
+      {/* Title */}
+      <div className="flex text-center items-center justify-center mb-10 lg:mb-14 bg-background h-60 pt-16 rounded-b-3xl">
+        <h2 className="text-2xl font-bold md:text-3xl md:leading-tight text-white dark:text-neutral-200 font-playfair ">
+         Terms and Conditions
+        </h2>
+      </div>
+      {/* End Title */}
 
-    
+      <div className="max-w-7xl mx-auto bg-white p-6 lg:p-10 rounded-xl shadow-sm mb-10 text-gray-700 font-montserrat">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<br />
+RANDOM GIANT TEXT EXPANSION
+<br />
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.
+<br />
+MORE RANDOMNESS!
+<br />
+The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump! Bright vixens jump; dozy fowl quack. Sphinx of black quartz, judge my vow.
+
+
+
+        </p>
+
+      </div>
     </div>
   );
-}
+};
+
+export default Privacy;

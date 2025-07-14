@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { useState , useEffect} from 'react';
 import Image from "next/image";
 import CircularMenuWrapper from "../CircularMenuWrapper";
-
+import { Link } from "@/i18n/routing";
 
 export default function HomeNav() {
   const te = useTranslations('tophero');
@@ -57,6 +57,7 @@ export default function HomeNav() {
           aria-label="Global"
         >
             <div className="col-span-1">
+<Link href="/">
                     <div className="relative h-9 w-32 ">
                               <Image
                                 src="/trust.png" // or "/logo.webp" if using an webp
@@ -67,7 +68,7 @@ export default function HomeNav() {
                                 priority // Ensures it loads faster
                               />
                             </div>
-       
+       </Link>
        </div>
       
        <CircularMenuWrapper/>

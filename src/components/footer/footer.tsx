@@ -78,9 +78,9 @@ const Footer = () => {
                      <div className="col-span-1 hover:bg-highlights hover:text-gray-900 p-3">
             <h2 className="pb-4 font-semibold uppercase font-playfair">How It Works</h2>
           <div className=" text-sm flex flex-col gap-3">
-            <Link href="/"><p className=" hover:underline cursor-pointer">Booking Process</p></Link>
-            <Link href="/"> <p className=" hover:underline cursor-pointer">Receipt Verification</p></Link>
-            <Link href="/"><p className=" hover:underline cursor-pointer">Trust System</p></Link>
+            <Link href="/booking-process"><p className=" hover:underline cursor-pointer">Booking Process</p></Link>
+            <Link href="/receipt-verification"> <p className=" hover:underline cursor-pointer">Receipt Verification</p></Link>
+            <Link href="/trust-score"><p className=" hover:underline cursor-pointer">Trust System</p></Link>
           
 
           </div>
@@ -92,8 +92,8 @@ const Footer = () => {
             <h2 className="pb-4 font-semibold uppercase font-playfair">Company</h2>
             <div className=" text-sm flex flex-col gap-3">
             <Link href="/"><p className=" hover:underline cursor-pointer">Home page</p></Link>
-            <Link href="/"><p className=" hover:underline cursor-pointer">About Us</p></Link>
-            <Link href="/"> <p className=" hover:underline cursor-pointer">Contact </p></Link>
+            <Link href="/about-us"><p className=" hover:underline cursor-pointer">About Us</p></Link>
+            <Link href="/contact-us"> <p className=" hover:underline cursor-pointer">Contact Us</p></Link>
           
           
           </div>
@@ -103,9 +103,9 @@ const Footer = () => {
             <div className="col-span-1 hover:bg-background hover:text-gray-900 p-3">
             <h2 className="pb-4 font-semibold uppercase font-playfair">Support</h2>
           <div className=" text-sm flex flex-col gap-3">
-            <Link href="/"><p className=" hover:underline cursor-pointer">Help Center</p></Link>
-            <Link href="/"> <p className=" hover:underline cursor-pointer">FAQ</p></Link>
-            <Link href="/"><p className=" hover:underline cursor-pointer">Business Support</p></Link>
+            <Link href="/help-center"><p className=" hover:underline cursor-pointer">Help Center</p></Link>
+            <Link href="/help"> <p className=" hover:underline cursor-pointer">FAQ</p></Link>
+            <Link href="/support"><p className=" hover:underline cursor-pointer">Business Support</p></Link>
         
 
           </div>
@@ -115,10 +115,10 @@ const Footer = () => {
             <div className="col-span-1 hover:bg-white hover:text-gray-900 p-3  ">
             <h2 className="pb-4 font-semibold uppercase font-playfair">Diners & Restaurants</h2>
             <div className=" text-sm flex flex-col gap-3">
-            <Link href="/"><p className=" hover:underline cursor-pointer ">Find Restaurants</p></Link>
-            <Link href="/"> <p className=" hover:underline cursor-pointer ">Become a Partner </p></Link>
-            <Link href="/"><p className=" hover:underline cursor-pointer">Pro Plan</p></Link>
-            <Link href="/"> <p className=" hover:underline cursor-pointer">Rewards Program</p></Link>
+            <Link href="/booking"><p className=" hover:underline cursor-pointer ">Find Hotels & Restaurants</p></Link>
+            <Link href="/partner"> <p className=" hover:underline cursor-pointer ">Become a Partner </p></Link>
+            <Link href="/pro"><p className=" hover:underline cursor-pointer">Pro Plan</p></Link>
+            <Link href="/rewards"> <p className=" hover:underline cursor-pointer">Rewards Program</p></Link>
           </div>
           
             </div>
