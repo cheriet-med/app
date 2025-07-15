@@ -24,23 +24,36 @@ import {
   LogOut,
   User
 } from 'lucide-react';
+import ProfileCard from './profilePage';
+import { CgProfile } from "react-icons/cg";
+
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { FaRegHeart } from "react-icons/fa";
+import { MdOutlineTravelExplore } from "react-icons/md";
+import { FaRegMessage } from "react-icons/fa6";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuCircleHelp } from "react-icons/lu";
+import { FiLogOut } from "react-icons/fi";
+import { IoHomeOutline } from "react-icons/io5";
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
+
 
 interface MenuItem {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: any;
   href: string;
   badge?: string;
 }
 
 const menuItems: MenuItem[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/' },
-  { id: 'users', label: 'Users', icon: Users, href: '/users' },
-  { id: 'analytics', label: 'Analytics', icon: BarChart3, href: '/analytics' },
-  { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/orders', },
-  { id: 'reports', label: 'Reports', icon: FileText, href: '/reports' },
-  { id: 'calendar', label: 'Calendar', icon: Calendar, href: '/calendar' },
-  { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
+  { id: 'Profile', label: 'Profile', icon: <CgProfile size={24} className='text-white'/>, href: '/en/account' },
+  { id: 'Wishlist', label: 'Wishlist', icon:  <FaRegHeart size={24} className='text-white'/>, href: '/users' },
+  { id: 'Trips', label: 'Trips', icon: <MdOutlineTravelExplore size={24} className='text-white'/>, href: '/analytics' },
+  { id: 'Messages', label: 'Messages', icon: <FaRegMessage size={24} className='text-white'/>, href: '/orders', },
+  { id: 'Account Settings', label: 'Account Settings', icon:<IoSettingsOutline size={24} className='text-white'/>, href: '/reports' },
+  { id: 'Help Center', label: 'Help Center', icon: <LuCircleHelp size={24} className='text-white'/>, href: '/calendar' },
+ { id: 'Home page', label: 'Home page', icon: <IoHomeOutline size={24} className='text-white'/>, href: '/' },
 ];
 
 export default function DashboardUser() {
@@ -79,22 +92,20 @@ export default function DashboardUser() {
   return (
     <>
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-50">
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-accent border-b border-gray-200 z-50 ">
         <div className="flex items-center justify-between px-4 h-full">
           <button
             onClick={toggleMobileMenu}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
-            <Menu className="h-6 w-6 text-gray-600" />
+            <HiOutlineMenuAlt1 size={28} className="text-white" />
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+        
           <div className="flex items-center space-x-2">
             <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <Bell className="h-5 w-5 text-gray-600" />
+             <IoMdNotificationsOutline size={28} className='text-white'/>
             </button>
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <User className="h-5 w-5 text-gray-600" />
-            </button>
+          
           </div>
         </div>
       </header>
@@ -116,25 +127,27 @@ export default function DashboardUser() {
         <div className={`flex items-center justify-between border-b border-gray-200 ${isCollapsed ? 'p-2' : 'p-4'}`}>
           {isCollapsed ? (
             <div className="flex items-center justify-center w-full">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">D</span>
-              </div>
+           
+                <span className="text-white font-bold font-playfair text-xl">D</span>
+             
             </div>
           ) : (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
               
-              <h2 className="text-lg font-bold text-gray-900">Dashboard</h2>
+              <h2 className="text-xl font-bold text-white font-playfair">Dashboard</h2>
+
+              <IoMdNotificationsOutline size={28} className='text-white hidden md:block'/>
             </div>
           )}
           {!isCollapsed && (
             <button
               onClick={window.innerWidth < 1024 ? toggleMobileMenu : toggleSidebar}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-background transition-colors"
             >
               {window.innerWidth < 1024 ? (
-                <X className="h-5 w-5 text-gray-600" />
+                <X className="h-5 w-5 text-white" />
               ) : (
-                <ChevronLeft className="h-5 w-5 text-gray-600" />
+                <ChevronLeft className="h-6 w-6 text-white" />
               )}
             </button>
           )}
@@ -145,9 +158,9 @@ export default function DashboardUser() {
           <div className="hidden lg:flex justify-center p-2">
             <button
               onClick={toggleSidebar}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-background transition-colors"
             >
-              <ChevronRight className="h-5 w-5 text-gray-600" />
+              <ChevronRight className="h-7 w-7 text-white" />
             </button>
           </div>
         )}
@@ -160,7 +173,7 @@ export default function DashboardUser() {
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-background focus:border-transparent text-gray-900 placeholder-gray-500"
               />
             </div>
           </div>
@@ -174,19 +187,21 @@ export default function DashboardUser() {
               const isActive = pathname === item.href;
               
               return (
-                <div key={item.id}>
+                <div key={item.id} className='font-montserrat'>
                   <Link
                     href={item.href}
                     className={`
                       flex items-center px-3 py-2 rounded-lg transition-all duration-200 group relative
                       ${isActive 
-                        ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25' 
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'bg-background text-white shadow-sm shadow-background' 
+                        : 'text-white hover:bg-background'
                       }
-                      ${isCollapsed ? 'justify-start pl-2 w-14 h-12' : 'space-x-3'}
+                      ${isCollapsed ? ' pl-1 w-8 h-8' : 'space-x-3'}
                     `}
                   >
-                    <Icon className={`h-5 w-5 ${isActive ? 'text-white' : 'text-gray-600'}`} />
+                  <div>
+                    {item.icon}
+                  </div>
                     {!isCollapsed && (
                       <>
                         <span className="font-medium">{item.label}</span>
@@ -204,7 +219,7 @@ export default function DashboardUser() {
                     )}
                     {/* Tooltip for collapsed state */}
                     {isCollapsed && (
-                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                      <div className="absolute left-full ml-2 px-2 py-1 bg-secondary text-white text-sm rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                         {item.label}
                         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900"></div>
                       </div>
@@ -222,7 +237,7 @@ export default function DashboardUser() {
             <div className="flex items-center space-x-3 px-2">
             <div className="w-10 h-10 relative rounded-full overflow-hidden">
   <Image
-    src="/asset/card-3.avif" 
+    src="/ex.avif" 
     alt="Facebook"
     fill // This makes the image fill the container
     style={{ 
@@ -230,19 +245,23 @@ export default function DashboardUser() {
     }}
   />
 </div>
-              <div className="flex-1">
-                <p className="text-sm font-bold text-gray-900">John Doe</p>
+
+  <div className="flex-1">
+                <p className=" font-medium text-gray-700 font-playfair text-white">Eliana Garcia</p>
                 
               </div>
-              <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                <LogOut className="h-4 w-4 text-gray-600" />
-              </button>
+              <div className='hover:bg-background p-1 rounded-lg' onClick={() => signOut({ callbackUrl: `/en/login` })}>
+                <FiLogOut size={24} className='text-white' />
             </div>
+            </div>
+ 
+
+            
           ) : (
-            <div className="flex flex-col items-center space-y-2">
+            <div className="flex flex-col items-center space-y-4">
                <div className="w-10 h-10 relative rounded-full overflow-hidden">
   <Image
-    src="/asset/card-3.avif" 
+    src="/ex.avif" 
     alt="Facebook"
     fill // This makes the image fill the container
     style={{ 
@@ -250,12 +269,10 @@ export default function DashboardUser() {
     }}
   />
 </div>
-              <div onClick={() => signOut({ callbackUrl: `/${locale}/login-signin` })}>   
-                <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors"  >
-                <LogOut className="h-4 w-4 text-gray-600" />
-              </button>
-
-              </div>
+             <div className='hover:bg-background p-1 rounded-lg' onClick={() => signOut({ callbackUrl: `/en/login` })}>
+               <FiLogOut size={24} className='text-white' />
+             </div>
+            
            
             </div>
           )}
@@ -268,19 +285,8 @@ export default function DashboardUser() {
         ${isCollapsed ? 'lg:ml-20' : 'lg:ml-64'}
         pt-16 lg:pt-0
       `}>
-        <div className="p-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Dashboard as <span className='text-green-700'>User</span></h1>
-            <p className="text-gray-600">
-              This is your main content area. The sidebar is fully responsive.
-            </p>
-            
-
-            <p onClick={() => signOut({ callbackUrl: `/${locale}/login` })} className='cursor-pointer mt-10 uppercase'>logout</p>
-              <Link href="/"> <p  className='cursor-pointer mt-10 uppercase'>Back to home page</p>
-                        </Link>
-          </div>
-        </div>
+    
+        <ProfileCard/>
       </main>
     </>
   );

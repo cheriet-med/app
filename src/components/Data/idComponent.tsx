@@ -18,8 +18,9 @@ import ShareButton from '@/components/Data/shareSocial';
 import { TbGridDots } from "react-icons/tb";
 import LoginButtonWishlistSinglepage from '@/components/header/loginButtonWishlistSingle';
 import LoginButtonAddReview from '@/components/header/LoginButtonAddReview';
-
 import Index from '@/components/Data/singlePageData';
+
+
 interface ImageData {
   src: string;
   width: number;
