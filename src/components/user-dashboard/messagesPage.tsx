@@ -36,7 +36,7 @@ import { LuCircleHelp } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
-
+import MessagesComponent from '../Data/chat';
 
 interface MenuItem {
   id: string;
@@ -56,7 +56,7 @@ const menuItems: MenuItem[] = [
  { id: 'Home page', label: 'Home page', icon: <IoHomeOutline size={24} className='text-white'/>, href: '/' },
 ];
 
-export default function DashboardUser() {
+export default function MessagesUser() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -286,8 +286,8 @@ export default function DashboardUser() {
         pt-16 lg:pt-0
       `}>
     
-        <ProfileCard/>
-      </main>
+    <MessagesComponent/>    
+    </main>
     </>
   );
 }

@@ -27,6 +27,9 @@ import {
 import ProfileCard from './profilePage';
 import { CgProfile } from "react-icons/cg";
 
+
+
+
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineTravelExplore } from "react-icons/md";
@@ -36,6 +39,8 @@ import { LuCircleHelp } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import PersonalInformation from '../Data/personalInfo';
+import TripsCards from '../Data/tripsCards';
 
 
 interface MenuItem {
@@ -56,7 +61,7 @@ const menuItems: MenuItem[] = [
  { id: 'Home page', label: 'Home page', icon: <IoHomeOutline size={24} className='text-white'/>, href: '/' },
 ];
 
-export default function DashboardUser() {
+export default function TripssUser() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -286,8 +291,8 @@ export default function DashboardUser() {
         pt-16 lg:pt-0
       `}>
     
-        <ProfileCard/>
-      </main>
+    <TripsCards/>    
+    </main>
     </>
   );
 }

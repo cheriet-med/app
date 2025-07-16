@@ -73,7 +73,7 @@ export default function Receipt() {
   };
 
   return (
-    <div className="mt-6 mx-96">
+    <div className="my-6 mx-2 lg:mx-6 ">
       <div>
         {/* Header Tabs */}
         <div className="grid grid-cols-2 divide-x divide-accent overflow-hidden rounded-lg border border-1 text-sm text-gray-500 bg-white">
@@ -111,7 +111,7 @@ export default function Receipt() {
           )}
         </div>
 
-<div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-6 rounded-lg border border-1 mt-8 space-y-6 text-sm text-white bg-accent">
           <h1 className="text-xl font-playfair font-semibold">Receipt validation</h1>
           <hr />

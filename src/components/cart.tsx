@@ -1,7 +1,7 @@
 'use client'
 // src/contexts/WishlistContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-const WISHLIST_STORAGE_KEY = "wishlist-data";
+const WISHLIST_STORAGE_KEY = "wishlist";
 
 // Simplified wishlist item structure
 type WishlistItem = {
@@ -9,6 +9,14 @@ type WishlistItem = {
   image: string;
   title: string;
   dateAdded: Date;
+  category:string;
+  cuisine:string;
+  price_range:string;
+  rating:number;
+  name:string;
+  location:string;
+  price: string | number;
+  lengtReviews:string | number
 };
 
 type WishlistContextType = {

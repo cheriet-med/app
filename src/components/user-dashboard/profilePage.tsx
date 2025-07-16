@@ -20,7 +20,7 @@ import { TbHistoryToggle } from "react-icons/tb";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { GoPencil } from "react-icons/go";
 import { MdOutlineRateReview } from "react-icons/md";
-
+import Link from 'next/link';
 
 
 import dynamic from 'next/dynamic';
@@ -273,12 +273,14 @@ const ProfileCard: React.FC = () => {
 {/* Reviews */ }
 
  <div className='border border-1 rounded-2xl p-6 shadow-sm bg-white relative'>
-           <div className="absolute right-4 top-4 border border-1 px-3 py-0.5 rounded-3xl border-secondary shadow-sm text-sm flex gap-1">
+    <Link href="/en/account/receipt-validation">        
+  <div className="absolute right-4 top-4 border border-1 px-3 py-0.5 rounded-3xl border-secondary shadow-sm text-sm flex gap-1 hover:bg-secondary hover:text-white">
  <MdOutlineRateReview size={18}/>
-        <p >
+    <p >
     Write Review
   </p> 
-      </div>
+ </div>
+ </Link>
      <h1 className='font-medium font-playfair mb-4 text-lg'>Reviews</h1>
 
        <div>

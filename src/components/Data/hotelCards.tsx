@@ -63,6 +63,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         id: id,
         image: imageUrl,
         title: address,
+        dateAdded: "",
+        category:"",
+        cuisine:"",
+        price_range:"",
+        rating:averageRating,
+        name:address,
+        price:price,
+        location:location,
+        lengtReviews:lengtReviews
         // Add other required fields if needed for your wishlist context
       };
       addItemToWishlist(wishlistItem);

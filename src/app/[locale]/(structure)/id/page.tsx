@@ -43,7 +43,9 @@ const hotelMarkers = hotelsWithLocations.map(hotel => ({
       )}
 
 
-     <Idcomponent id={12} imageUrl={"/sgdfsg"} address={"hello"}/>
+     <Idcomponent id={12} imageUrl={"/sgdfsg"} address={"hello"} price={250} averageRating={4.5} lengtReviews={"hello"} location={"hello"}/>
     </div>
   )
 }
+
+

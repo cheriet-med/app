@@ -5,6 +5,8 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Upload, Eye, X, RefreshCw, Shield, Camera, StopCircle } from 'lucide-react';
 import { FaFileUpload } from "react-icons/fa";
 
+
+
 interface ReceiptUploadProps {
   onFileUpload: (file: File) => void;
   uploadedFile: File | null;
@@ -393,8 +395,8 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
           isDragActive
-            ? 'border-blue-500 bg-blue-50'
-            : 'border-gray-300 hover:border-blue-400'
+            ? 'border-blue-500 bg-accent'
+            : 'border-gray-300 hover:border-accent'
         }`}
         onDragEnter={handleDrag}
         onDragOver={handleDrag}
@@ -402,9 +404,9 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         onDrop={handleDrop}
         onClick={triggerFileInput}
       >
-        <FaFileUpload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+        <FaFileUpload className="h-16 w-16 text-accent mx-auto mb-4" />
         <label htmlFor="receipt-upload" className="cursor-pointer">
-          <span className="font-medium text-primary uppercase">
+          <span className="font-medium text-primary uppercase font-playfair">
             {isDragActive ? 'Drop your receipt here' : 'Upload or Drop Receipt Image'}
           </span>
           <p className="text-primary text-sm mt-1">Accepted formats: PNG, JPG. Maximum file size: 10MB.</p>
@@ -429,7 +431,7 @@ const ReceiptUpload: React.FC<ReceiptUploadProps> = ({
         <div className="flex justify-center space-x-4 mt-6">
           <button
             onClick={startCamera}
-            className="flex items-center px-4 py-2 text-primary border border-spacing-1 border-primary rounded-lg hover:bg-slate-50 transition-colors"
+            className="flex items-center px-4 py-2 text-primary border  border-primary rounded-lg hover:bg-slate-50 transition-colors"
           >
             <Camera className="h-6 w-6 mr-2" />
             or Take Photo

@@ -24,6 +24,11 @@ export const routing = defineRouting({
     "/support":"/support",
     "/pro":"/pro",
     "/rewards":"/rewards", 
+    "/account/messages":"/account/messages", 
+    "/account/personal-information":"/account/personal-information", 
+    "/account/wishlist":"/account/wishlist",
+     "/account/trips":"/account/trips",
+     "/account/receipt-validation":"/account/receipt-validation",
     "/account": {
       en: "/account",
       fr: "/compte",

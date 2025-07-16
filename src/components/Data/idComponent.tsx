@@ -31,10 +31,13 @@ interface ImageData {
 }
 
 interface PropertyCardProps {
-  id: string | number | any;
- 
+   id: string | number | any;
+  price: string | number;
   address: string;
   imageUrl: string;
+  averageRating: number;
+  lengtReviews: string;
+  location:string;
  
 }
 
@@ -130,10 +133,18 @@ const Idcomponent: React.FC<PropertyCardProps> = ({
     } else {
       // Create wishlist item with simplified structure
       const wishlistItem = {
-        id: id,
+       id: id+"htl",
         image: imageUrl,
         title: address,
-        // Add other required fields if needed for your wishlist context
+        dateAdded: "",
+        category:"string",
+        cuisine:"string",
+        price_range:"string",
+        rating:4.5,
+        name:address,
+        price:"price",
+        location:"location",
+        lengtReviews:"lengtReviews"
       };
       addItemToWishlist(wishlistItem);
     }
@@ -292,7 +303,7 @@ const Idcomponent: React.FC<PropertyCardProps> = ({
                 </div>
 
  {
-                          status === "authenticated" ?   <Link href="/">
+                          status === "authenticated" ?   <Link href="/en/account/receipt-validation">
                 <div className='flex items-center hover:underline'>
                 <GoPencil className="w-4 h-4 mr-2"/>
                  <p >
